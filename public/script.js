@@ -1,13 +1,18 @@
 $(function() {
   $kittyLoaderOverlay = $('.window__kitty-loader-overlay');
-  $loadSceneButton = $('.js-load-scene');
+  $launchSceneButton = $('.js-launch-scene');
+  $aFrameKittyImage = document.querySelector('#kittyImage');
 
-  $loadSceneButton.on('click', function() {
+  $launchSceneButton.on('click', function() {
     $kittyLoaderOverlay.addClass('hide');
   });
 
-  document.querySelector('a-scene').addEventListener('loaded', function () {
-    $loadSceneButton.prop('disabled', false);
-    $loadSceneButton.text('Launch scene');
-  });
+  AFRAME.registerComponent('kitty-scene', {
+    init: function() {
+      console.log('kitty-scene has init');
+      $launchSceneButton.prop('disabled', false);
+      $launchSceneButton.text('Launch scene');
+      $aFrameKittyImage.setAttribute('src', '#kitty-from-data');
+    }
+  })
 });
