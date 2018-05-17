@@ -1,10 +1,29 @@
-#notification {
+.hide {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.window__kitty-loader-overlay {
   position: absolute;
-  width: 100%;
   top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  background-color: #FFFFFF;
+}
+
+.window__kitty-loader {
   text-align: center;
-  color: red;
+  padding-top: 60px;
+}
+
+.window__kitty-loader-button {
+  margin: auto;
+  text-align: center;
   font-weight: bold;
   font-size: 18px;
-  z-index: 10;
+  padding: 20px;
 }
+
