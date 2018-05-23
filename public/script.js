@@ -3,6 +3,7 @@ $(function() {
   var $launchSceneButton = $('.js-launch-scene');
   var $aFrameKittyImage = document.querySelector('#kittyImage');
   var $aFrameAssets = document.querySelector('a-assets');
+  var $aScene = document.querySelector('a-scene');
 
   $launchSceneButton.on('click', async function() {
     var kittyId = 12345;
@@ -72,12 +73,8 @@ $(function() {
     console.log(kittyItem, 'has been loaded from localStorage');
   }
 
-  AFRAME.registerComponent('kitty-scene', {
-    init: function() {
-      console.log('kitty-scene has init');
-
-      $launchSceneButton.prop('disabled', false);
-      $launchSceneButton.text('Launch scene');
-    }
-  });
+  $aScene.addEventListener('loaded', function() {
+    $kittyLoaderOverlay.removeClass('window__kitty-loader-overlay-preloading');
+    $kittyLoaderOverlay.addClass('window__kitty-loader-overlay-open');
+  })
 });
