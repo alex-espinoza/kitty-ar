@@ -6,12 +6,12 @@ $(function() {
 
   $launchSceneButton.on('click', async function() {
     var kittyId = 12345;
-    var kittyImageData = await getKittyImageDataById(kittyId);
+    var kittyData = await getKittyDataById(kittyId);
 
-    if (kittyImageData.pngData !== null || kittyImageData.svgData !== null) {
+    if (kittyData.imageUrl !== null && kittyData.imageExtension !== null && kittyData.imageData !== null) {
       console.log('kitty image was successfully found and fetched');
-      await saveKittyImageDataToLocalStorage(kittyId, kittyImageData);
-      await loadKittyImageFromLocalStorage(kittyId);
+      await saveKittyDataToLocalStorage(kittyId, kittyData);
+      await loadKittyFromLocalStorage(kittyId);
 
       $kittyLoaderOverlay.hide();
     } else {
@@ -20,11 +20,11 @@ $(function() {
     }
   });
 
-  async function getKittyImageDataById(kittyId) {
-    var kittyImageData;
-    var kittyImageDataEndpoint = `https://wt-f8af72159b229d5a895848a643ddf7bf-0.sandbox.auth0-extend.com/kitty-image-to-base64?kittyId=${kittyId}`;
+  async function getKittyDataById(kittyId) {
+    var kittyData;
+    var kittyDataEndpoint = `https://wt-f8af72159b229d5a895848a643ddf7bf-0.sandbox.auth0-extend.com/kitty-image-to-base64?kittyId=${kittyId}`;
 
-    await fetch(kittyImageDataEndpoint)
+    await fetch(kittyDataEndpoint)
       .then(function(response) {
         if (!response.ok) {
           throw Error(response);
@@ -34,38 +34,38 @@ $(function() {
       })
       .then(function(json) {
         console.log(`200 success when fetching kitty ${kittyId} image data:`, json);
-        kittyImageData = json;
+        kittyData = json;
       })
       .catch(function(error) {
         console.log(`there was an error when fetching kitty ${kittyId} image data:`, error);
-        kittyImageData = {
-          pngData: null,
-          svgData: null
+        var kittyData = {
+          id: kittyId,
+          name: null,
+          bio: null,
+          imageUrl: null,
+          imageExtension: null,
+          imageData: null,
         };
       });
 
-    return kittyImageData;
+    return kittyData;
   }
 
-  function saveKittyImageDataToLocalStorage(kittyId, kittyImageData) {
-    var kittyItem = 'kitty-' + kittyId;
+  function saveKittyDataToLocalStorage(kittyId, kittyData) {
+    var kittyItem = `kitty-${kittyId}`;
+    var stringifiedKittyData = JSON.stringify(kittyData);
 
-    if (kittyImageData.pngData !== null) {
-      kittyDataUrl = kittyImageData.pngData;
-    } else {
-      kittyDataUrl = kittyImageData.svgData;
-    }
-
-    localStorage.setItem(kittyItem, kittyDataUrl);
+    localStorage.setItem(kittyItem, stringifiedKittyData);
     console.log(kittyItem, 'has been saved to localStorage');
   }
 
-  function loadKittyImageFromLocalStorage(kittyId) {
-    var kittyItem = 'kitty-' + kittyId;
-    var newKittyImageElement = document.createElement('img');
+  function loadKittyFromLocalStorage(kittyId) {
+    var kittyItem = `kitty-${kittyId}`;
+    var kittyImageData = JSON.parse(localStorage.getItem(kittyItem)).imageData;
 
+    var newKittyImageElement = document.createElement('img');
     newKittyImageElement.setAttribute('id', 'kitty-from-storage');
-    newKittyImageElement.setAttribute('src', localStorage.getItem(kittyItem));
+    newKittyImageElement.setAttribute('src', kittyImageData);
     $aFrameAssets.appendChild(newKittyImageElement);
     $aFrameKittyImage.setAttribute('src', '#kitty-from-storage');
 
