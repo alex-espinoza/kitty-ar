@@ -1,9 +1,3 @@
-body {
-  width: 100% !important;
-  height: 100% !important;
-  margin: 0 !important;
-}
-
 .hide {
   display: none;
   visibility: hidden;
@@ -11,6 +5,9 @@ body {
 }
 
 .window__kitty-loader-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
   opacity: 0;
   pointer-events: none;
   display: flex;
@@ -23,6 +20,7 @@ body {
   min-height: 100%;
   z-index: 10;
   background-color: #FFFFFF;
+  overflow: hidden;
 }
 
 .preloading .window__kitty-loader-overlay,
@@ -114,16 +112,7 @@ body {
   font-size: 18px;
 }
 
-video {
-  opacity: 1 !important;
-  overflow: hidden !important;
-}
-
-.preloading video,
-.overlay-open video {
-  opacity: 0 !important;
-}
-
 .a-enter-vr {
   display: none;
 }
+

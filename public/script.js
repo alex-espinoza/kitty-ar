@@ -120,4 +120,10 @@ $(function() {
     $(this).addClass('window__kitty-loader-list-image-selected');
     $selectKittyButton.attr('disabled', false);
   });
+
+  $(document).bind('scroll', function() {
+    if ($body.scrollLeft() !== 0) {
+      $body.scrollLeft(0);
+    }
+  });
 });
