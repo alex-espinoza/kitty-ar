@@ -18,9 +18,9 @@
   width: 100%;
   height: auto;
   min-height: 100%;
-  z-index: 10;
   background-color: #FFFFFF;
   overflow: hidden;
+  z-index: 20;
 }
 
 .preloading .window__kitty-loader-overlay,
@@ -113,7 +113,18 @@
   font-size: 18px;
 }
 
+.window__kitty-open-overlay-button {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 24px;
+  padding: 14px;
+  z-index: 10;
+}
+
 .a-enter-vr {
   display: none;
 }
+
+
 

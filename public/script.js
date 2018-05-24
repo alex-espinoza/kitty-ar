@@ -7,9 +7,11 @@ $(function() {
   var $aFrameKittyImage = document.querySelector('#kittyImage');
   var $aFrameAssets = document.querySelector('a-assets');
   var $aScene = document.querySelector('a-scene');
+  var $openOverlayButton = $('.window__kitty-open-overlay-button');
 
   $selectKittyButton.on('click', async function() {
     var kittyId = $kittyLoaderList.find('.window__kitty-loader-list-image-selected').data('kitty-id');
+    await removeExistingLoadedKitty();
     await loadKittyFromLocalStorage(kittyId);
     $body.removeClass('overlay-open');
   });
@@ -69,6 +71,11 @@ $(function() {
     console.log(kittyItem, 'has been saved to localStorage');
   }
 
+  function removeExistingLoadedKitty() {
+    $aFrameKittyImage.setAttribute('src', '#transparent-pixel');
+    $('#kitty-from-storage').remove();
+  }
+
   function loadKittyFromLocalStorage(kittyId) {
     var kittyItem = `kitty-${kittyId}`;
     var kittyImageData = JSON.parse(localStorage.getItem(kittyItem)).imageData;
@@ -126,4 +133,8 @@ $(function() {
       $body.scrollLeft(0);
     }
   });
+
+  $openOverlayButton.on('click', function() {
+    $body.addClass('overlay-open');
+  })
 });
