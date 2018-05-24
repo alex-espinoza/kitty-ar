@@ -1,6 +1,7 @@
 $(function() {
   var $body = $('body');
   var $kittyLoaderOverlay = $('.window__kitty-loader-overlay');
+  var $kittyLoaderList = $('.window__kitty-loader-list');
   var $selectKittyButton = $('.js-select-kitty');
   var $loadKittyButton = $('.js-load-kitty');
   var $aFrameKittyImage = document.querySelector('#kittyImage');
@@ -8,6 +9,12 @@ $(function() {
   var $aScene = document.querySelector('a-scene');
 
   $selectKittyButton.on('click', async function() {
+    var kittyId = $kittyLoaderList.find('.window__kitty-loader-list-image-selected').data('kitty-id');
+    await loadKittyFromLocalStorage(kittyId);
+    $body.removeClass('overlay-open');
+  });
+
+  $loadKittyButton.on('click', async function() {
     var kittyId = 12345;
     var kittyData = await getKittyDataById(kittyId);
 
@@ -91,7 +98,7 @@ $(function() {
         var newKittyLoaderListItem = document.createElement('img');
         newKittyLoaderListItem.setAttribute('class', 'window__kitty-loader-list-image')
         newKittyLoaderListItem.setAttribute('src', kittyData.imageData);
-        newKittyLoaderListItem.setAttribute('data-kitty-key', key);
+        newKittyLoaderListItem.setAttribute('data-kitty-id', kittyData.id);
         kittyLoaderList.appendChild(newKittyLoaderListItem);
       }
     }
@@ -99,5 +106,9 @@ $(function() {
 
   addKittiesToLoaderListFromLocalStorage();
 
-
+  $kittyLoaderList.on('click', '.window__kitty-loader-list-image', function() {
+    $kittyLoaderList.find('.window__kitty-loader-list-image').removeClass('window__kitty-loader-list-image-selected');
+    $(this).addClass('window__kitty-loader-list-image-selected');
+    $selectKittyButton.attr('disabled', false);
+  });
 });

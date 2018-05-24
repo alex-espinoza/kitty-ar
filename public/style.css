@@ -98,9 +98,13 @@ body {
 }
 
 .window__kitty-loader-list-image {
-  flex: 1 1 50%;
+  flex: 1 1 45%;
   width: 150px;
   height: auto;
+}
+
+.window__kitty-loader-list-image-selected {
+  border: 2px solid pink;
 }
 
 .window__kitty-loader-button {
