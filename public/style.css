@@ -1,3 +1,9 @@
+body {
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+}
+
 .hide {
   display: none;
   visibility: hidden;
@@ -5,18 +11,96 @@
 }
 
 .window__kitty-loader-overlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  height: auto;
+  min-height: 100%;
   z-index: 10;
   background-color: #FFFFFF;
 }
 
-.window__kitty-loader {
+.preloading .window__kitty-loader-overlay,
+.overlay-open .window__kitty-loader-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.window__kitty-preloader {
+  display: none;
   text-align: center;
-  padding-top: 60px;
+}
+
+.preloading .window__kitty-preloader {
+  display: block;
+}
+
+.window__kitty-preloader-diamond {
+  display: inline-block;
+  height: 50px;
+  width: auto;
+  transform: rotate(0deg);
+  transform-origin: center center;
+  animation: diamondRotate 1s ease-in-out infinite;
+}
+
+@keyframes diamondRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+.window__kitty-preloader-diamond-shapes {
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-bottom: 25px solid pink;
+  position: relative;
+  top: -10px;
+}
+
+.window__kitty-preloader-diamond-shapes:after {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 25px;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-top: 25px solid pink;
+}
+
+.window__kitty-loader {
+  display: none;
+  text-align: center;
+}
+
+.overlay-open .window__kitty-loader {
+  display: block;
+}
+
+.window__kitty-loader-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.window__kitty-loader-list-image {
+  flex: 1 1 50%;
+  width: 150px;
+  height: auto;
 }
 
 .window__kitty-loader-button {
@@ -24,5 +108,18 @@
   text-align: center;
   font-weight: bold;
   font-size: 18px;
-  padding: 20px;
+}
+
+video {
+  opacity: 1 !important;
+  overflow: hidden !important;
+}
+
+.preloading video,
+.overlay-open video {
+  opacity: 0 !important;
+}
+
+.a-enter-vr {
+  display: none;
 }

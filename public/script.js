@@ -1,11 +1,13 @@
 $(function() {
+  var $body = $('body');
   var $kittyLoaderOverlay = $('.window__kitty-loader-overlay');
-  var $launchSceneButton = $('.js-launch-scene');
+  var $selectKittyButton = $('.js-select-kitty');
+  var $loadKittyButton = $('.js-load-kitty');
   var $aFrameKittyImage = document.querySelector('#kittyImage');
   var $aFrameAssets = document.querySelector('a-assets');
   var $aScene = document.querySelector('a-scene');
 
-  $launchSceneButton.on('click', async function() {
+  $selectKittyButton.on('click', async function() {
     var kittyId = 12345;
     var kittyData = await getKittyDataById(kittyId);
 
@@ -74,7 +76,28 @@ $(function() {
   }
 
   $aScene.addEventListener('loaded', function() {
-    $kittyLoaderOverlay.removeClass('window__kitty-loader-overlay-preloading');
-    $kittyLoaderOverlay.addClass('window__kitty-loader-overlay-open');
-  })
+    $body.removeClass('preloading');
+    $body.addClass('overlay-open');
+  });
+
+  function addKittiesToLoaderListFromLocalStorage() {
+    var kittyLoaderList = document.querySelector('.window__kitty-loader-list');
+
+    for (var i = 0; i < localStorage.length; i++) {
+      var key = localStorage.key(i);
+
+      if (key.startsWith('kitty-')) {
+        var kittyData = JSON.parse(localStorage.getItem(key));
+        var newKittyLoaderListItem = document.createElement('img');
+        newKittyLoaderListItem.setAttribute('class', 'window__kitty-loader-list-image')
+        newKittyLoaderListItem.setAttribute('src', kittyData.imageData);
+        newKittyLoaderListItem.setAttribute('data-kitty-key', key);
+        kittyLoaderList.appendChild(newKittyLoaderListItem);
+      }
+    }
+  }
+
+  addKittiesToLoaderListFromLocalStorage();
+
+
 });

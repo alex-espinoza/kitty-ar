@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="theme-color" content="#000000">
     <!--
       manifest.json provides metadata used when your web app is added to the
@@ -28,14 +28,25 @@
     <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js" defer></script>
     <title>Kitty Gatherer</title>
   </head>
-  <body style="margin: 0px; overflow: hidden;">
+  <body style="margin: 0px; overflow: hidden;" class="preloading">
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
 
     <div class="window__kitty-loader-overlay">
+      <h1>Kitty AR</h1>
+
+      <div class="window__kitty-preloader">
+        <p>Please allow camera access to see your kitties!</p>
+        <div class="window__kitty-preloader-diamond">
+          <div class="window__kitty-preloader-diamond-shapes"></div>
+        </div>
+      </div>
+
       <div class="window__kitty-loader">
-        <button class="window__kitty-loader-button js-launch-scene" disabled>Loading webcam...</button>
+        <div class="window__kitty-loader-list"></div>
+        <button class="window__kitty-loader-button js-select-kitty" disabled>Select Kitty</button>
+        <button class="window__kitty-loader-button js-load-kitty" disabled>Load Kitty</button>
       </div>
     </div>
 
