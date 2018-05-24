@@ -99,6 +99,7 @@
   flex: 1 1 45%;
   width: 150px;
   height: auto;
+  border: 2px solid transparent;
 }
 
 .window__kitty-loader-list-image-selected {
