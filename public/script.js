@@ -38,6 +38,7 @@ $(function() {
 
       $body.removeClass('overlay-open');
 
+      addKittiesToLoaderListFromLocalStorage();
       clearLoadKittyInput();
       disableLoadKittyButton();
     } else {
@@ -145,6 +146,7 @@ $(function() {
 
   function addKittiesToLoaderListFromLocalStorage() {
     var kittyLoaderList = document.querySelector('.window__kitty-loader-list');
+    kittyLoaderList.innerHTML = '';
 
     for (var i = 0; i < localStorage.length; i++) {
       var key = localStorage.key(i);
