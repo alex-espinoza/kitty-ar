@@ -82,10 +82,19 @@ $(function() {
     console.log(kittyItem, 'has been loaded from localStorage');
   }
 
-  $aScene.addEventListener('loaded', function() {
-    $body.removeClass('preloading');
-    $body.addClass('overlay-open');
-  });
+  function checkIfARLoaded() {
+    var checkIfARLoaded = setInterval(function() {
+      if ($('a-scene').length && $('a-scene a-assets').length && $('a-scene a-image').length && $('a-scene canvas').length && $('video').length) {
+        $body.removeClass('preloading');
+        $body.addClass('overlay-open');
+        clearInterval(checkIfARLoaded);
+      }
+    }, 1000);
+  }
+
+  var delayFirstARLoadedCheck = setTimeout(function() {
+    checkIfARLoaded();
+  }, 3000);
 
   function addKittiesToLoaderListFromLocalStorage() {
     var kittyLoaderList = document.querySelector('.window__kitty-loader-list');
