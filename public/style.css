@@ -10,7 +10,7 @@
   left: 0;
   opacity: 0;
   pointer-events: none;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -27,6 +27,7 @@
 .overlay-open .window__kitty-loader-overlay {
   opacity: 1;
   pointer-events: auto;
+  display: flex;
 }
 
 .window__kitty-preloader {
@@ -80,10 +81,14 @@
 .window__kitty-loader {
   display: none;
   text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
 
 .overlay-open .window__kitty-loader {
-  display: block;
+  display: flex;
 }
 
 .window__kitty-loader-list {
@@ -96,7 +101,7 @@
 }
 
 .window__kitty-loader-list-image {
-  flex: 1 1 45%;
+  flex: 0 0 45%;
   width: 150px;
   height: auto;
   border: 2px solid transparent;

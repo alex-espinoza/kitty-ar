@@ -8,6 +8,7 @@ $(function() {
   var $aFrameAssets = document.querySelector('a-assets');
   var $aScene = document.querySelector('a-scene');
   var $openOverlayButton = $('.window__kitty-open-overlay-button');
+  var $loadKittyIdInput  = $('#load-kitty-id');
 
   $selectKittyButton.on('click', async function() {
     var kittyId = $kittyLoaderList.find('.window__kitty-loader-list-image-selected').data('kitty-id');
@@ -17,20 +18,59 @@ $(function() {
   });
 
   $loadKittyButton.on('click', async function() {
-    var kittyId = 12345;
+    disableLoadKittyButton();
+    var kittyId = $loadKittyIdInput.val();
+
+    if (await checkIfKittyAlreadySaved(kittyId)) {
+      console.log('kitty was already saved! loading kitty #', kittyId);
+      clearLoadKittyInput();
+      disableLoadKittyButton();
+      return;
+    }
+
     var kittyData = await getKittyDataById(kittyId);
 
     if (kittyData.imageUrl !== null && kittyData.imageExtension !== null && kittyData.imageData !== null) {
       console.log('kitty image was successfully found and fetched');
       await saveKittyDataToLocalStorage(kittyId, kittyData);
+      await removeExistingLoadedKitty();
       await loadKittyFromLocalStorage(kittyId);
 
-      $kittyLoaderOverlay.hide();
+      $body.removeClass('overlay-open');
+
+      clearLoadKittyInput();
+      disableLoadKittyButton();
     } else {
-      console.log('kitty image could not be found');
-      // handle showing error on screen here
+      console.log('kitty image data could not be fetched, try again');
+      enableLoadKittyButton();
     }
   });
+
+  async function checkIfKittyAlreadySaved(kittyId) {
+    var kittyItem = `kitty-${kittyId}`;
+
+    if (kittyItem in localStorage) {
+      await removeExistingLoadedKitty();
+      await loadKittyFromLocalStorage(kittyId);
+      $body.removeClass('overlay-open');
+
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function clearLoadKittyInput() {
+    $loadKittyIdInput.val('');
+  }
+
+  function disableLoadKittyButton() {
+    $loadKittyButton.attr('disabled', true);
+  }
+
+  function enableLoadKittyButton() {
+    $loadKittyButton.attr('disabled', false);
+  }
 
   async function getKittyDataById(kittyId) {
     var kittyData;
@@ -136,5 +176,16 @@ $(function() {
 
   $openOverlayButton.on('click', function() {
     $body.addClass('overlay-open');
-  })
+  });
+
+  $loadKittyIdInput.on('keyup', function() {
+    var id = $(this).val();
+    var regex = /^[0-9]+$/;
+
+    if (id.match(regex)) {
+      enableLoadKittyButton();
+    } else {
+      disableLoadKittyButton();
+    }
+  });
 });
