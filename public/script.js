@@ -9,6 +9,7 @@ $(function() {
   var $aScene = document.querySelector('a-scene');
   var $openOverlayButton = $('.window__kitty-open-overlay-button');
   var $loadKittyIdInput  = $('#load-kitty-id');
+  var $loadingBlockText = $('.window__loading-block-text');
 
   $selectKittyButton.on('click', async function() {
     var kittyId = $kittyLoaderList.find('.window__kitty-loader-list-image-selected').data('kitty-id');
@@ -19,6 +20,7 @@ $(function() {
 
   $loadKittyButton.on('click', async function() {
     disableLoadKittyButton();
+
     var kittyId = $loadKittyIdInput.val();
 
     if (await checkIfKittyAlreadySaved(kittyId)) {
@@ -45,6 +47,8 @@ $(function() {
       console.log('kitty image data could not be fetched, try again');
       enableLoadKittyButton();
     }
+
+    setLoadingBlock(false);
   });
 
   async function checkIfKittyAlreadySaved(kittyId) {
@@ -73,9 +77,23 @@ $(function() {
     $loadKittyButton.attr('disabled', false);
   }
 
+  function setLoadingBlock(display, text) {
+    if (display) {
+      $body.addClass('loading');
+    } else {
+      $body.removeClass('loading');
+    }
+
+    if (text) {
+      $loadingBlockText.text(text);
+    }
+  }
+
   async function getKittyDataById(kittyId) {
     var kittyData;
     var kittyDataEndpoint = `https://wt-f8af72159b229d5a895848a643ddf7bf-0.sandbox.auth0-extend.com/kitty-image-to-base64?kittyId=${kittyId}`;
+
+    setLoadingBlock(true, 'Getting your kitty...');
 
     await fetch(kittyDataEndpoint)
       .then(function(response) {

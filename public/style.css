@@ -127,6 +127,29 @@
   z-index: 10;
 }
 
+.window__loading-block {
+  display: none;
+  position: fixed;
+  left: 0;
+  bottom: 30px;
+  width: 100%;
+  z-index: 30;
+}
+
+.loading .window__loading-block {
+  display: block;
+}
+
+.window__loading-block-text {
+  width: 300px;
+  padding: 12px;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #ffffff;
+  border: 2px solid pink;
+  font-size: 16px;
+}
+
 .a-enter-vr {
   display: none;
 }
