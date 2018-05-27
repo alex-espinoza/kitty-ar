@@ -1,0 +1,43 @@
+.KittyList {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.KittyList-kitties {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.KittyList-kitty-image {
+  flex: 0 0 45%;
+  width: 150px;
+  height: auto;
+  border: 2px solid transparent;
+}
+
+.KittyList-kitty-image-selected {
+  border: 2px solid pink;
+}
+
+.KittyList-button {
+  width: 100%;
+  margin: 0 auto 12px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.KittyList-input {
+  margin: 0 auto 12px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}

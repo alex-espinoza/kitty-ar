@@ -1,5 +1,6 @@
 import React from 'react';
 import SplashScreen from './SplashScreen';
+import KittyList from './KittyList';
 import './KittyLoader.css';
 
 class KittyLoader extends React.Component {
@@ -7,7 +8,7 @@ class KittyLoader extends React.Component {
     super();
 
     this.state = {
-      splashScreen: true
+      kittyLoaderReady: false
     };
   }
 
@@ -27,7 +28,7 @@ class KittyLoader extends React.Component {
 
       if (aSceneLoaded && aAssetsLoaded && aImageLoaded && canvasLoaded && videoLoaded) {
         this.setState({
-          splashScreen: false
+          kittyLoaderReady: true
         });
         clearInterval(checkIfARLoaded);
       }
@@ -35,14 +36,18 @@ class KittyLoader extends React.Component {
   }
 
   render() {
-    const { splashScreen } = this.state;
+    const { kittyLoaderReady } = this.state;
 
     return (
       <div className="KittyLoader">
         <h1>Kitty AR</h1>
 
-        {splashScreen &&
+        {!kittyLoaderReady &&
           <SplashScreen />
+        }
+
+        {kittyLoaderReady &&
+          <KittyList />
         }
       </div>
     );
