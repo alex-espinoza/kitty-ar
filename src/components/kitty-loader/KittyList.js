@@ -6,7 +6,8 @@ class KittyList extends React.Component {
     super();
 
     this.state = {
-      kitties: []
+      kitties: [],
+      selectedKittyId: null
     };
   }
 
@@ -31,25 +32,57 @@ class KittyList extends React.Component {
     });
   }
 
+  handleSelectKitty(kittyId) {
+    this.setState({
+      selectedKittyId: kittyId
+    });
+  }
+
   render() {
-    const { kitties } = this.state;
+    const { kitties, selectedKittyId } = this.state;
+
+    let kittiesList = kitties.map((kitty) => {
+      let kittyKey = `kitty-${kitty.id}`;
+      let kittySelected = kitty.id === selectedKittyId ? 'KittyList-kitty-image-selected' : '';
+
+      return (
+        <img
+          key={kittyKey}
+          alt={kitty.name || kittyKey}
+          className={`KittyList-kitty-image ${kittySelected}`}
+          src={kitty.imageData}
+          data-kitty-id={kitty.id}
+          onClick={() => this.handleSelectKitty(kitty.id)}
+        />
+      )
+    });
 
     return (
       <div className="KittyList">
         <div className="KittyList-kitties">
-          {kitties.map((kitty) => (
-            <img
-              id={`kitty-${kitty.id}`}
-              className="KittyList-kitty-image"
-              src={kitty.imageData}
-              data-kitty-id={kitty.id}
-            />
-          ))}
+          {kittiesList}
         </div>
 
-        <button className="KittyList-button KittyList-button-select-kitty" disabled>Select Kitty</button>
-        <input className="KittyList-input" id="kittyId" name="kittyId" type="number" placeholder="Kitty ID" required />
-        <button className="KittyList-button KittyList-button-load-kitty" disabled>Load Kitty</button>
+        <button
+          className="KittyList-button KittyList-button-select-kitty"
+          disabled={!this.state.selectedKittyId}>Select Kitty
+        </button>
+
+        <input
+          className="KittyList-input"
+          id="kittyId"
+          name="kittyId"
+          type="number"
+          placeholder="Kitty ID"
+          required
+        />
+
+        <button
+          className="KittyList-button KittyList-button-load-kitty"
+          disabled
+        >
+          Load Kitty
+        </button>
       </div>
     );
   }
