@@ -2,9 +2,9 @@
   position: absolute;
   top: 0;
   left: 0;
-  opacity: 0;
-  pointer-events: none;
-  display: none;
+  opacity: 1;
+  pointer-events: auto;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -17,57 +17,9 @@
   z-index: 20;
 }
 
-.preloading .KittyLoader,
+/*.preloading .KittyLoader,
 .overlay-open .KittyLoader {
   opacity: 1;
   pointer-events: auto;
   display: flex;
-}
-
-.KittyLoader-splash-screen {
-  display: none;
-  text-align: center;
-}
-
-.preloading .KittyLoader-splash-screen {
-  display: block;
-}
-
-.KittyLoader-splash-screen-diamond {
-  display: inline-block;
-  height: 50px;
-  width: auto;
-  transform: rotate(0deg);
-  transform-origin: center center;
-  animation: diamondRotate 1s ease-in-out infinite;
-}
-
-@keyframes diamondRotate {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(180deg);
-  }
-}
-
-.KittyLoader-splash-screen-diamond-pseudo {
-  width: 0;
-  height: 0;
-  border: 10px solid transparent;
-  border-bottom: 25px solid pink;
-  position: relative;
-  top: -10px;
-}
-
-.KittyLoader-splash-screen-diamond-pseudo:after {
-  content: '';
-  position: absolute;
-  left: -10px;
-  top: 25px;
-  width: 0;
-  height: 0;
-  border: 10px solid transparent;
-  border-top: 25px solid pink;
-}
+}*/

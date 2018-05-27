@@ -1,0 +1,42 @@
+.SplashScreen {
+  text-align: center;
+}
+
+.SplashScreen-diamond {
+  display: inline-block;
+  height: 50px;
+  width: auto;
+  transform: rotate(0deg);
+  transform-origin: center center;
+  animation: diamondRotate 1s ease-in-out infinite;
+}
+
+@keyframes diamondRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+.SplashScreen-diamond-pseudo {
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-bottom: 25px solid pink;
+  position: relative;
+  top: -10px;
+}
+
+.SplashScreen-diamond-pseudo:after {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 25px;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-top: 25px solid pink;
+}
