@@ -54,19 +54,19 @@
         <button class="window__kitty-loader-button js-load-kitty" disabled>Load Kitty</button>
       </div>
     </div> -->
+    <div id="root"></div>
 
-    <!-- <button class="window__kitty-open-overlay-button">Back</button>
+    <!-- <button class="window__kitty-open-overlay-button">Back</button> -->
 
     <a-scene embedded kitty-scene arjs="sourceType: webcam; debugUIEnabled: false;">
       <a-assets>
-        <img id="transparent-pixel" src="./transparent-1px.png">
+        <img id="transparent-pixel" src="./transparent-1px.png" />
       </a-assets>
 
-      <a-image id="kittyImage" src="#transparent-pixel" width="3" height="3" position="0 0.5 0" rotation="0 0 0"></a-image>
+      <a-image id="kittyImage" bind__src="value: app.kittyImageData" width="3" height="3" position="0 0.5 0" rotation="0 0 0"></a-image>
       <a-marker-camera preset="hiro"></a-marker-camera>
-    </a-scene> -->
+    </a-scene>
 
-    <div id="root"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

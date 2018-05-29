@@ -8,7 +8,7 @@ class KittyList extends React.Component {
 
     this.state = {
       kitties: [],
-      highlightedKittyId: null
+      selectedKittyId: null
     };
   }
 
@@ -35,17 +35,17 @@ class KittyList extends React.Component {
 
   handleKittyImageClick(kittyId) {
     this.setState({
-      highlightedKittyId: kittyId
+      selectedKittyId: kittyId
     });
   }
 
   render() {
-    const { kitties, highlightedKittyId } = this.state;
+    const { kitties, selectedKittyId } = this.state;
     const { handleSelectKittyButton } = this.props;
 
     let kittiesList = kitties.map((kitty) => {
       let kittyKey = `kitty-${kitty.id}`;
-      let kittySelectedClass = kitty.id === highlightedKittyId ? 'KittyList-kitty-image-selected' : '';
+      let kittySelectedClass = kitty.id === selectedKittyId ? 'KittyList-kitty-image-selected' : '';
 
       return (
         <img
@@ -67,8 +67,8 @@ class KittyList extends React.Component {
 
         <button
           className="KittyList-button KittyList-button-select-kitty"
-          disabled={!this.state.highlightedKittyId}
-          onClick={() => handleSelectKittyButton(highlightedKittyId)}
+          disabled={!selectedKittyId}
+          onClick={() => handleSelectKittyButton(selectedKittyId)}
         >
           Select Kitty
         </button>
