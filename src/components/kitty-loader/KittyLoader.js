@@ -1,11 +1,12 @@
 import React from 'react';
 import SplashScreen from './SplashScreen';
 import KittyList from './KittyList';
+import PropTypes from 'prop-types';
 import './KittyLoader.css';
 
 class KittyLoader extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       kittyLoaderReady: false
@@ -37,9 +38,11 @@ class KittyLoader extends React.Component {
 
   render() {
     const { kittyLoaderReady } = this.state;
+    const { showKittyLoader, handleSelectKittyButton } = this.props;
+    let showKittyLoaderClass = showKittyLoader ? 'KittyLoader-show' : '';
 
     return (
-      <div className="KittyLoader">
+      <div className={`KittyLoader ${showKittyLoaderClass}`}>
         <h1>Kitty AR</h1>
 
         {!kittyLoaderReady &&
@@ -47,11 +50,18 @@ class KittyLoader extends React.Component {
         }
 
         {kittyLoaderReady &&
-          <KittyList />
+          <KittyList
+            handleSelectKittyButton={handleSelectKittyButton}
+          />
         }
       </div>
     );
   }
+}
+
+KittyLoader.propTypes = {
+  showKittyLoader: PropTypes.bool.isRequired,
+  handleSelectKittyButton: PropTypes.func.isRequired,
 }
 
 export default KittyLoader;

@@ -4,7 +4,11 @@
   "private": true,
   "dependencies": {
     "aframe": "^0.8.2",
+    "aframe-react": "^4.4.0",
+    "aframe-state-component": "^3.4.0",
     "ajv": "^6.4.0",
+    "ar.js": "^1.4.10",
+    "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-scripts": "1.1.4"
@@ -14,5 +18,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "asm-async-loader": "^1.0.1"
   }
 }

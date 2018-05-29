@@ -1,15 +1,40 @@
-import React, { Component } from 'react';
+import React from 'react';
 import KittyLoader from './components/kitty-loader/KittyLoader';
-import Aframe from './components/aframe/Aframe';
-import logo from './logo.svg';
+import ARScene from './components/ar-scene/ARScene';
 import './App.css';
 
-class App extends Component {
+class App extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      selectedKittyId: null,
+      showKittyLoader: true
+    };
+
+    this.handleSelectKittyButton = this.handleSelectKittyButton.bind(this);
+  }
+
+  handleSelectKittyButton(kittyId) {
+    this.setState({
+      selectedKittyId: kittyId,
+      showKittyLoader: false
+    });
+  }
+
   render() {
+    const { showKittyLoader, selectedKittyId } = this.state;
+
     return (
       <div>
-        <KittyLoader />
-        <Aframe />
+        <KittyLoader
+          showKittyLoader={showKittyLoader}
+          handleSelectKittyButton={this.handleSelectKittyButton}
+        />
+
+        <ARScene
+          selectedKittyId={selectedKittyId}
+        />
       </div>
     );
   }

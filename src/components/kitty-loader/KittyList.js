@@ -1,13 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './KittyList.css';
 
 class KittyList extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       kitties: [],
-      selectedKittyId: null
+      highlightedKittyId: null
     };
   }
 
@@ -32,27 +33,28 @@ class KittyList extends React.Component {
     });
   }
 
-  handleSelectKitty(kittyId) {
+  handleKittyImageClick(kittyId) {
     this.setState({
-      selectedKittyId: kittyId
+      highlightedKittyId: kittyId
     });
   }
 
   render() {
-    const { kitties, selectedKittyId } = this.state;
+    const { kitties, highlightedKittyId } = this.state;
+    const { handleSelectKittyButton } = this.props;
 
     let kittiesList = kitties.map((kitty) => {
       let kittyKey = `kitty-${kitty.id}`;
-      let kittySelected = kitty.id === selectedKittyId ? 'KittyList-kitty-image-selected' : '';
+      let kittySelectedClass = kitty.id === highlightedKittyId ? 'KittyList-kitty-image-selected' : '';
 
       return (
         <img
           key={kittyKey}
           alt={kitty.name || kittyKey}
-          className={`KittyList-kitty-image ${kittySelected}`}
+          className={`KittyList-kitty-image ${kittySelectedClass}`}
           src={kitty.imageData}
           data-kitty-id={kitty.id}
-          onClick={() => this.handleSelectKitty(kitty.id)}
+          onClick={() => this.handleKittyImageClick(kitty.id)}
         />
       )
     });
@@ -60,12 +62,15 @@ class KittyList extends React.Component {
     return (
       <div className="KittyList">
         <div className="KittyList-kitties">
-          {kittiesList}
+          { kittiesList }
         </div>
 
         <button
           className="KittyList-button KittyList-button-select-kitty"
-          disabled={!this.state.selectedKittyId}>Select Kitty
+          disabled={!this.state.highlightedKittyId}
+          onClick={() => handleSelectKittyButton(highlightedKittyId)}
+        >
+          Select Kitty
         </button>
 
         <input
@@ -86,6 +91,11 @@ class KittyList extends React.Component {
       </div>
     );
   }
+}
+
+
+KittyList.propTypes = {
+  handleSelectKittyButton: PropTypes.func.isRequired,
 }
 
 export default KittyList;
