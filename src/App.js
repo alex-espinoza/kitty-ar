@@ -1,5 +1,6 @@
 import React from 'react';
 import KittyLoader from './components/kitty-loader/KittyLoader';
+import OverlayButton from './components/overlay-button/OverlayButton';
 import 'aframe';
 import './App.css';
 
@@ -13,6 +14,7 @@ class App extends React.Component {
     };
 
     this.handleSelectKittyButton = this.handleSelectKittyButton.bind(this);
+    this.handleOverlayButton = this.handleOverlayButton.bind(this);
   }
 
   loadARjs() {
@@ -36,6 +38,12 @@ class App extends React.Component {
     document.querySelector('#kittyImage').setAttribute('src', kittyImageData);
   }
 
+  handleOverlayButton() {
+    this.setState({
+      showKittyLoader: true
+    });
+  }
+
   render() {
     const { showKittyLoader } = this.state;
 
@@ -44,6 +52,10 @@ class App extends React.Component {
         <KittyLoader
           showKittyLoader={showKittyLoader}
           handleSelectKittyButton={this.handleSelectKittyButton}
+        />
+
+        <OverlayButton
+          handleOverlayButton={this.handleOverlayButton}
         />
       </div>
     );
