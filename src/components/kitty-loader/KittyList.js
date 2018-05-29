@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { VALID_LOAD_KITTY_ID_REGEX } from '../../config';
 import './KittyList.css';
 
 class KittyList extends React.Component {
@@ -8,12 +9,15 @@ class KittyList extends React.Component {
 
     this.state = {
       kitties: [],
-      selectedKittyId: null
+      selectedKittyId: null,
+      loadKittyId: null
     };
+
+    this.handleLoadKittyIdChange = this.handleLoadKittyIdChange.bind(this);
   }
 
   componentDidMount() {
-    this.getKittiesFromLocalStorage()
+    this.getKittiesFromLocalStorage();
   }
 
   getKittiesFromLocalStorage() {
@@ -39,9 +43,23 @@ class KittyList extends React.Component {
     });
   }
 
+  handleLoadKittyIdChange(event) {
+    let kittyId = event.target.value;
+
+    if (kittyId.match(VALID_LOAD_KITTY_ID_REGEX)) {
+      this.setState({
+        loadKittyId: kittyId
+      });
+    } else {
+      this.setState({
+        loadKittyId: null
+      });
+    }
+  }
+
   render() {
-    const { kitties, selectedKittyId } = this.state;
-    const { handleSelectKittyButton } = this.props;
+    const { kitties, selectedKittyId, loadKittyId } = this.state;
+    const { handleSelectKittyButton, handleLoadKittyButton } = this.props;
 
     let kittiesList = kitties.map((kitty) => {
       let kittyKey = `kitty-${kitty.id}`;
@@ -80,11 +98,13 @@ class KittyList extends React.Component {
           type="number"
           placeholder="Kitty ID"
           required
+          onChange={this.handleLoadKittyIdChange}
         />
 
         <button
           className="KittyList-button KittyList-button-load-kitty"
-          disabled
+          disabled={!loadKittyId}
+          onClick={() => handleLoadKittyButton(loadKittyId)}
         >
           Load Kitty
         </button>

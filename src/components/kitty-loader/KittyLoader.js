@@ -38,7 +38,7 @@ class KittyLoader extends React.Component {
 
   render() {
     const { kittyLoaderReady } = this.state;
-    const { showKittyLoader, handleSelectKittyButton } = this.props;
+    const { showKittyLoader, handleSelectKittyButton, handleLoadKittyButton } = this.props;
     let showKittyLoaderClass = showKittyLoader ? 'KittyLoader-show' : '';
 
     return (
@@ -52,6 +52,7 @@ class KittyLoader extends React.Component {
         {kittyLoaderReady &&
           <KittyList
             handleSelectKittyButton={handleSelectKittyButton}
+            handleLoadKittyButton={handleLoadKittyButton}
           />
         }
       </div>
@@ -62,6 +63,7 @@ class KittyLoader extends React.Component {
 KittyLoader.propTypes = {
   showKittyLoader: PropTypes.bool.isRequired,
   handleSelectKittyButton: PropTypes.func.isRequired,
+  handleLoadKittyButton: PropTypes.func.isRequired
 }
 
 export default KittyLoader;

@@ -1,6 +1,8 @@
 import React from 'react';
 import KittyLoader from './components/kitty-loader/KittyLoader';
 import OverlayButton from './components/overlay-button/OverlayButton';
+import { loadKittyFromLocalStorage, saveKittyToLocalStorage } from './kittyData';
+import { getKittyDataById } from './kittyApi';
 import 'aframe';
 import './App.css';
 
@@ -15,6 +17,7 @@ class App extends React.Component {
 
     this.handleSelectKittyButton = this.handleSelectKittyButton.bind(this);
     this.handleOverlayButton = this.handleOverlayButton.bind(this);
+    this.handleLoadKittyButton = this.handleLoadKittyButton.bind(this);
   }
 
   loadARjs() {
@@ -25,23 +28,59 @@ class App extends React.Component {
   }
 
   handleSelectKittyButton(kittyId) {
-    this.loadSelectedKittyFromLocalStorage(kittyId);
+    loadKittyFromLocalStorage(kittyId);
 
     this.setState({
       showKittyLoader: false
     });
   }
 
-  loadSelectedKittyFromLocalStorage(kittyId) {
-    let kittyItem = `kitty-${kittyId}`;
-    let kittyImageData = JSON.parse(localStorage.getItem(kittyItem)).imageData;
-    document.querySelector('#kittyImage').setAttribute('src', kittyImageData);
-  }
-
   handleOverlayButton() {
     this.setState({
       showKittyLoader: true
     });
+  }
+
+  async handleLoadKittyButton(kittyId) {
+    if (this.checkIfKittyAlreadySaved(kittyId)) {
+      console.log('kitty was already saved! loading kitty #', kittyId);
+      loadKittyFromLocalStorage(kittyId);
+
+      this.setState({
+        showKittyLoader: false
+      });
+
+      return;
+    }
+
+    //set loading text state here
+
+    let kittyData = await getKittyDataById(kittyId);
+
+    if (kittyData.imageUrl !== null && kittyData.imageExtension !== null && kittyData.imageData !== null) {
+      console.log('kitty image was successfully found and fetched');
+      await saveKittyToLocalStorage(kittyId, kittyData);
+      //await removeExistingLoadedKitty();
+      await loadKittyFromLocalStorage(kittyId);
+
+      this.setState({
+        showKittyLoader: false
+      });
+
+      //$body.removeClass('overlay-open');
+
+      // addKittiesToLoaderListFromLocalStorage();
+      // clearLoadKittyInput();
+      // disableLoadKittyButton();
+    } else {
+      console.log('kitty image data could not be fetched, try again');
+      //enableLoadKittyButton();
+    }
+  }
+
+  checkIfKittyAlreadySaved(kittyId) {
+    let kittyItem = `kitty-${kittyId}`;
+    return kittyItem in localStorage ? true : false;
   }
 
   render() {
@@ -52,6 +91,7 @@ class App extends React.Component {
         <KittyLoader
           showKittyLoader={showKittyLoader}
           handleSelectKittyButton={this.handleSelectKittyButton}
+          handleLoadKittyButton={this.handleLoadKittyButton}
         />
 
         <OverlayButton
