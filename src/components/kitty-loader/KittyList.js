@@ -17,7 +17,22 @@ class KittyList extends React.Component {
   }
 
   componentDidMount() {
-    this.getKittiesFromLocalStorage();
+    let localStorageKitties = this.getKittiesFromLocalStorage();
+
+    this.setState({
+      kitties: localStorageKitties
+    });
+  }
+
+  componentDidUpdate() {
+    const { kitties } = this.state;
+    let localStorageKitties = this.getKittiesFromLocalStorage();
+
+    if (kitties.length !== localStorageKitties.length) {
+      this.setState({
+        kitties: localStorageKitties
+      });
+    }
   }
 
   getKittiesFromLocalStorage() {
@@ -32,9 +47,7 @@ class KittyList extends React.Component {
       }
     }
 
-    this.setState({
-      kitties: localStorageKitties
-    });
+    return localStorageKitties;
   }
 
   handleKittyImageClick(kittyId) {

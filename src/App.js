@@ -45,6 +45,7 @@ class App extends React.Component {
   async handleLoadKittyButton(kittyId) {
     this.setState({
       isLoadingKitty: true
+      //set loading text state here
     });
 
     if (this.checkIfKittyAlreadySaved(kittyId)) {
@@ -59,8 +60,6 @@ class App extends React.Component {
       return;
     }
 
-    //set loading text state here
-
     let kittyData = await getKittyDataById(kittyId);
 
     if (kittyData.imageUrl !== null && kittyData.imageExtension !== null && kittyData.imageData !== null) {
@@ -73,12 +72,9 @@ class App extends React.Component {
         isLoadingKitty: false
       });
 
-      // addKittiesToLoaderListFromLocalStorage();
       // clearLoadKittyInput();
-      // disableLoadKittyButton();
     } else {
       console.log('kitty image data could not be fetched, try again');
-      //enableLoadKittyButton();
       this.setState({
         showKittyLoader: true,
         isLoadingKitty: false
