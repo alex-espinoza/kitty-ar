@@ -16,7 +16,7 @@ export const getKittyDataById = async (kittyId) => {
     })
     .catch(function(error) {
       console.log(`there was an error when fetching kitty ${kittyId} image data:`, error);
-      var kittyData = {
+      kittyData = {
         id: kittyId,
         name: null,
         bio: null,

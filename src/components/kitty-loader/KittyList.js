@@ -59,7 +59,7 @@ class KittyList extends React.Component {
 
   render() {
     const { kitties, selectedKittyId, loadKittyId } = this.state;
-    const { handleSelectKittyButton, handleLoadKittyButton } = this.props;
+    const { isLoadingKitty, handleSelectKittyButton, handleLoadKittyButton } = this.props;
 
     let kittiesList = kitties.map((kitty) => {
       let kittyKey = `kitty-${kitty.id}`;
@@ -103,7 +103,7 @@ class KittyList extends React.Component {
 
         <button
           className="KittyList-button KittyList-button-load-kitty"
-          disabled={!loadKittyId}
+          disabled={isLoadingKitty || !loadKittyId}
           onClick={() => handleLoadKittyButton(loadKittyId)}
         >
           Load Kitty
@@ -115,7 +115,9 @@ class KittyList extends React.Component {
 
 
 KittyList.propTypes = {
+  isLoadingKitty: PropTypes.bool.isRequired,
   handleSelectKittyButton: PropTypes.func.isRequired,
+  handleLoadKittyButton: PropTypes.func.isRequired
 }
 
 export default KittyList;

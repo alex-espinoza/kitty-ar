@@ -12,7 +12,8 @@ class App extends React.Component {
     this.loadARjs();
 
     this.state = {
-      showKittyLoader: true
+      showKittyLoader: true,
+      isLoadingKitty: false
     };
 
     this.handleSelectKittyButton = this.handleSelectKittyButton.bind(this);
@@ -42,12 +43,17 @@ class App extends React.Component {
   }
 
   async handleLoadKittyButton(kittyId) {
+    this.setState({
+      isLoadingKitty: true
+    });
+
     if (this.checkIfKittyAlreadySaved(kittyId)) {
       console.log('kitty was already saved! loading kitty #', kittyId);
       loadKittyFromLocalStorage(kittyId);
 
       this.setState({
-        showKittyLoader: false
+        showKittyLoader: false,
+        isLoadingKitty: false
       });
 
       return;
@@ -60,14 +66,12 @@ class App extends React.Component {
     if (kittyData.imageUrl !== null && kittyData.imageExtension !== null && kittyData.imageData !== null) {
       console.log('kitty image was successfully found and fetched');
       await saveKittyToLocalStorage(kittyId, kittyData);
-      //await removeExistingLoadedKitty();
       await loadKittyFromLocalStorage(kittyId);
 
       this.setState({
-        showKittyLoader: false
+        showKittyLoader: false,
+        isLoadingKitty: false
       });
-
-      //$body.removeClass('overlay-open');
 
       // addKittiesToLoaderListFromLocalStorage();
       // clearLoadKittyInput();
@@ -75,6 +79,10 @@ class App extends React.Component {
     } else {
       console.log('kitty image data could not be fetched, try again');
       //enableLoadKittyButton();
+      this.setState({
+        showKittyLoader: true,
+        isLoadingKitty: false
+      });
     }
   }
 
@@ -84,12 +92,13 @@ class App extends React.Component {
   }
 
   render() {
-    const { showKittyLoader } = this.state;
+    const { showKittyLoader, isLoadingKitty } = this.state;
 
     return (
       <div>
         <KittyLoader
           showKittyLoader={showKittyLoader}
+          isLoadingKitty={isLoadingKitty}
           handleSelectKittyButton={this.handleSelectKittyButton}
           handleLoadKittyButton={this.handleLoadKittyButton}
         />
