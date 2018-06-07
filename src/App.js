@@ -1,7 +1,7 @@
 import React from 'react';
 import KittyLoader from './components/kitty-loader/KittyLoader';
 import OverlayButton from './components/overlay-button/OverlayButton';
-import { loadKittyFromLocalStorage, saveKittyToLocalStorage } from './kittyData';
+import { getAllKittiesFromLocalStorage, loadKittyFromLocalStorage, saveKittyToLocalStorage } from './kittyData';
 import { getKittyDataById } from './kittyApi';
 import 'aframe';
 import './App.css';
@@ -11,7 +11,10 @@ class App extends React.Component {
     super();
     this.loadARjs();
 
+    let localStorageKitties = getAllKittiesFromLocalStorage();
+
     this.state = {
+      kitties: localStorageKitties,
       showKittyLoader: true,
       isLoadingKitty: false
     };
@@ -64,15 +67,30 @@ class App extends React.Component {
 
     if (kittyData.imageUrl !== null && kittyData.imageExtension !== null && kittyData.imageData !== null) {
       console.log('kitty image was successfully found and fetched');
-      await saveKittyToLocalStorage(kittyId, kittyData);
+
+      // Try/catch block to see if local storage is full. Base64 images can be quite big, and storage
+      // can max out if a lot of kitties are already loaded
+      try {
+        await saveKittyToLocalStorage(kittyId, kittyData);
+      } catch(error) {
+        console.log('local storage is full, please clear some kitties out');
+        // set storage full error text state here
+        this.setState({
+          showKittyLoader: true,
+          isLoadingKitty: false
+        });
+
+        return;
+      }
+
       await loadKittyFromLocalStorage(kittyId);
+      let localStorageKitties = await getAllKittiesFromLocalStorage();
 
       this.setState({
+        kitties: localStorageKitties,
         showKittyLoader: false,
         isLoadingKitty: false
       });
-
-      // clearLoadKittyInput();
     } else {
       console.log('kitty image data could not be fetched, try again');
       this.setState({
@@ -88,11 +106,12 @@ class App extends React.Component {
   }
 
   render() {
-    const { showKittyLoader, isLoadingKitty } = this.state;
+    const { kitties, showKittyLoader, isLoadingKitty } = this.state;
 
     return (
       <div>
         <KittyLoader
+          kitties={kitties}
           showKittyLoader={showKittyLoader}
           isLoadingKitty={isLoadingKitty}
           handleSelectKittyButton={this.handleSelectKittyButton}

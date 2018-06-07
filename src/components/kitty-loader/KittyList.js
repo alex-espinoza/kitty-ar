@@ -8,46 +8,32 @@ class KittyList extends React.Component {
     super(props);
 
     this.state = {
-      kitties: [],
       selectedKittyId: null,
-      loadKittyId: null
+      loadKittyId: '',
+      validLoadKittyId: false
     };
 
     this.handleLoadKittyIdChange = this.handleLoadKittyIdChange.bind(this);
   }
 
-  componentDidMount() {
-    let localStorageKitties = this.getKittiesFromLocalStorage();
+  getSnapshotBeforeUpdate(previousProps, previousState) {
+    let previousKittyList = previousProps.kitties;
+    let newKittyList = this.props.kitties;
 
-    this.setState({
-      kitties: localStorageKitties
-    });
+    if (previousKittyList.length !== newKittyList.length) {
+      return true
+    } else {
+      return false
+    }
   }
 
-  componentDidUpdate() {
-    const { kitties } = this.state;
-    let localStorageKitties = this.getKittiesFromLocalStorage();
-
-    if (kitties.length !== localStorageKitties.length) {
+  componentDidUpdate(previousProps, previousState, snapshot) {
+    if (snapshot) {
       this.setState({
-        kitties: localStorageKitties
+        loadKittyId: '',
+        validLoadKittyId: false
       });
     }
-  }
-
-  getKittiesFromLocalStorage() {
-    let localStorageKitties = [];
-
-    for (let i = 0; i < localStorage.length; i++) {
-      let key = localStorage.key(i);
-
-      if (key.startsWith('kitty-')) {
-        let kittyData = JSON.parse(localStorage.getItem(key));
-        localStorageKitties.push(kittyData);
-      }
-    }
-
-    return localStorageKitties;
   }
 
   handleKittyImageClick(kittyId) {
@@ -57,22 +43,26 @@ class KittyList extends React.Component {
   }
 
   handleLoadKittyIdChange(event) {
-    let kittyId = event.target.value;
+    let loadKittyId = event.target.value;
 
-    if (kittyId.match(VALID_LOAD_KITTY_ID_REGEX)) {
+    this.setState({
+      loadKittyId
+    });
+
+    if (loadKittyId.match(VALID_LOAD_KITTY_ID_REGEX)) {
       this.setState({
-        loadKittyId: kittyId
+        validLoadKittyId: true
       });
     } else {
       this.setState({
-        loadKittyId: null
+        validLoadKittyId: false
       });
     }
   }
 
   render() {
-    const { kitties, selectedKittyId, loadKittyId } = this.state;
-    const { isLoadingKitty, handleSelectKittyButton, handleLoadKittyButton } = this.props;
+    const { selectedKittyId, loadKittyId, validLoadKittyId } = this.state;
+    const { kitties, isLoadingKitty, handleSelectKittyButton, handleLoadKittyButton } = this.props;
 
     let kittiesList = kitties.map((kitty) => {
       let kittyKey = `kitty-${kitty.id}`;
@@ -111,12 +101,13 @@ class KittyList extends React.Component {
           type="number"
           placeholder="Kitty ID"
           required
-          onChange={this.handleLoadKittyIdChange}
+          value={loadKittyId}
+          onChange={(event) => this.handleLoadKittyIdChange(event)}
         />
 
         <button
           className="KittyList-button KittyList-button-load-kitty"
-          disabled={isLoadingKitty || !loadKittyId}
+          disabled={isLoadingKitty || !validLoadKittyId}
           onClick={() => handleLoadKittyButton(loadKittyId)}
         >
           Load Kitty
@@ -128,6 +119,7 @@ class KittyList extends React.Component {
 
 
 KittyList.propTypes = {
+  kitties: PropTypes.array.isRequired,
   isLoadingKitty: PropTypes.bool.isRequired,
   handleSelectKittyButton: PropTypes.func.isRequired,
   handleLoadKittyButton: PropTypes.func.isRequired
