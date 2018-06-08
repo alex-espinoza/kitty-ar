@@ -19,6 +19,18 @@ class KittyLoader extends React.Component {
     }, 3000);
   }
 
+  componentDidUpdate() {
+    const { showKittyLoader } = this.props;
+
+    if (showKittyLoader) {
+      document.body.classList.add('no-scroll');
+      document.getElementsByTagName('video')[0].classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+      document.getElementsByTagName('video')[0].classList.remove('no-scroll');
+    }
+  }
+
   checkIfARLoaded() {
     let checkIfARLoaded = setInterval(() => {
       let aSceneLoaded = document.getElementsByTagName('a-scene')[0].hasChildNodes();
