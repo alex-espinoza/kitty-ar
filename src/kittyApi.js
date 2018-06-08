@@ -11,11 +11,9 @@ export const getKittyDataById = async (kittyId) => {
       return response.json();
     })
     .then(function(json) {
-      console.log(`200 success when fetching kitty ${kittyId} image data:`, json);
       kittyData = json;
     })
     .catch(function(error) {
-      console.log(`there was an error when fetching kitty ${kittyId} image data:`, error);
       kittyData = {
         id: kittyId,
         name: null,

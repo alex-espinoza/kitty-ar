@@ -23,5 +23,4 @@ export const saveKittyToLocalStorage = (kittyId, kittyData) => {
   var kittyItem = `kitty-${kittyId}`;
   var stringifiedKittyData = JSON.stringify(kittyData);
   localStorage.setItem(kittyItem, stringifiedKittyData);
-  console.log(kittyItem, 'has been saved to localStorage');
 }
