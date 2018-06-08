@@ -52,7 +52,6 @@ class App extends React.Component {
     });
 
     if (this.checkIfKittyAlreadySaved(kittyId)) {
-      console.log('kitty was already saved! loading kitty #', kittyId);
       loadKittyFromLocalStorage(kittyId);
 
       this.setState({
@@ -66,8 +65,6 @@ class App extends React.Component {
     let kittyData = await getKittyDataById(kittyId);
 
     if (kittyData.imageUrl !== null && kittyData.imageExtension !== null && kittyData.imageData !== null) {
-      console.log('kitty image was successfully found and fetched');
-
       // Try/catch block to see if local storage is full. Base64 images can be quite big, and storage
       // can max out if a lot of kitties are already loaded
       try {
@@ -92,7 +89,6 @@ class App extends React.Component {
         isLoadingKitty: false
       });
     } else {
-      console.log('kitty image data could not be fetched, try again');
       this.setState({
         showKittyLoader: true,
         isLoadingKitty: false
