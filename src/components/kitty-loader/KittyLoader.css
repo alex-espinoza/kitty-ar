@@ -4,7 +4,7 @@
   left: 0;
   opacity: 0;
   pointer-events: none;
-  display: none;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -15,10 +15,60 @@
   background-color: #FFFFFF;
   overflow: hidden;
   z-index: 20;
+  transition: opacity 200ms ease;
 }
 
 .KittyLoader-show {
   opacity: 1;
   pointer-events: auto;
-  display: flex;
 }
+
+.KittyLoader-header {
+  text-align: center;
+}
+
+.SplashScreen-transition-appear {
+  opacity: 0;
+}
+
+.SplashScreen-transition-appear.SplashScreen-transition-appear-active {
+  opacity: 1;
+  transition: opacity 1000ms ease;
+}
+
+.SplashScreen-transition-leave {
+  opacity: 1;
+}
+
+.SplashScreen-transition-leave.SplashScreen-transition-leave-active {
+  opacity: 0;
+  transition: opacity 1000ms ease;
+}
+
+.KittyList-transition-appear {
+  opacity: 0;
+}
+
+.KittyList-transition-appear.KittyList-transition-appear-active {
+  opacity: 1;
+  transition: opacity 1000ms ease;
+}
+
+.KittyList-transition-enter {
+  opacity: 0;
+}
+
+.KittyList-transition-enter.KittyList-transition-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms ease;
+}
+
+.KittyList-transition-leave {
+  opacity: 1;
+}
+
+.KittyList-transition-leave.KittyList-transition-leave-active {
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+

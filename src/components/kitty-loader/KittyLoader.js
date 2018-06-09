@@ -1,4 +1,6 @@
 import React from 'react';
+import { CSSTransitionGroup } from 'react-transition-group';
+import { generateKey } from '../../utils';
 import SplashScreen from './SplashScreen';
 import KittyList from './KittyList';
 import PropTypes from 'prop-types';
@@ -9,6 +11,7 @@ class KittyLoader extends React.Component {
     super(props);
 
     this.state = {
+      showSplashScreen: true,
       kittyLoaderReady: false
     };
   }
@@ -23,8 +26,10 @@ class KittyLoader extends React.Component {
     const { showKittyLoader } = this.props;
 
     if (showKittyLoader) {
-      document.body.classList.add('no-scroll');
-      document.getElementsByTagName('video')[0].classList.add('no-scroll');
+      setTimeout(() => {
+        document.body.classList.add('no-scroll');
+        document.getElementsByTagName('video')[0].classList.add('no-scroll');
+      }, 210);
     } else {
       document.body.classList.remove('no-scroll');
       document.getElementsByTagName('video')[0].classList.remove('no-scroll');
@@ -41,34 +46,56 @@ class KittyLoader extends React.Component {
 
       if (aSceneLoaded && aAssetsLoaded && aImageLoaded && canvasLoaded && videoLoaded) {
         this.setState({
-          kittyLoaderReady: true
+          showSplashScreen: false
         });
+
+        setTimeout(() => {
+          this.setState({
+            kittyLoaderReady: true
+          });
+        }, 1100)
+
         clearInterval(checkIfARLoaded);
       }
     }, 1000);
   }
 
   render() {
-    const { kittyLoaderReady } = this.state;
+    const { showSplashScreen, kittyLoaderReady } = this.state;
     const { kitties, showKittyLoader, isLoadingKitty, handleSelectKittyButton, handleLoadKittyButton } = this.props;
     let showKittyLoaderClass = showKittyLoader ? 'KittyLoader-show' : '';
 
     return (
       <div className={`KittyLoader ${showKittyLoaderClass}`}>
-        <h1>Kitty AR</h1>
+        <CSSTransitionGroup
+          transitionName="SplashScreen-transition"
+          transitionAppear={true}
+          transitionAppearTimeout={1000}
+          transitionEnterTimeout={1000}
+          transitionLeaveTimeout={1000}
+        >
+          {showSplashScreen &&
+            <SplashScreen key={generateKey('SplashScreen')} />
+          }
+        </CSSTransitionGroup>
 
-        {!kittyLoaderReady &&
-          <SplashScreen />
-        }
-
-        {kittyLoaderReady &&
-          <KittyList
-            kitties={kitties}
-            isLoadingKitty={isLoadingKitty}
-            handleSelectKittyButton={handleSelectKittyButton}
-            handleLoadKittyButton={handleLoadKittyButton}
-          />
-        }
+        <CSSTransitionGroup
+          transitionName="KittyList-transition"
+          transitionAppear={true}
+          transitionAppearTimeout={1000}
+          transitionEnterTimeout={1000}
+          transitionLeaveTimeout={200}
+        >
+          {kittyLoaderReady &&
+            <KittyList
+              key={generateKey('KittyList')}
+              kitties={kitties}
+              isLoadingKitty={isLoadingKitty}
+              handleSelectKittyButton={handleSelectKittyButton}
+              handleLoadKittyButton={handleLoadKittyButton}
+            />
+          }
+        </CSSTransitionGroup>
       </div>
     );
   }

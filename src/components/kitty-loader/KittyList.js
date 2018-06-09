@@ -82,6 +82,8 @@ class KittyList extends React.Component {
 
     return (
       <div className="KittyList">
+        <h1 className="KittyList-header">Kitty AR</h1>
+
         <div className="KittyList-kitties">
           { kittiesList }
         </div>

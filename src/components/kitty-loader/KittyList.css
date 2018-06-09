@@ -7,6 +7,10 @@
   align-content: center;
 }
 
+.KittyList-header {
+  text-align: center;
+}
+
 .KittyList-kitties {
   display: flex;
   flex-direction: row;
