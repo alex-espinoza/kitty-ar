@@ -2,6 +2,40 @@
   text-align: center;
 }
 
+.SplashScreen-header {
+  text-align: center;
+  animation: tada 1s ease 1s;
+}
+
+
+@keyframes tada {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+
+  10%,
+  20% {
+    transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -5deg);
+  }
+
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 5deg);
+  }
+
+  40%,
+  60%,
+  80% {
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -5deg);
+  }
+
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
 .SplashScreen-diamond {
   display: inline-block;
   height: 50px;
