@@ -29,7 +29,7 @@ class KittyLoader extends React.Component {
       setTimeout(() => {
         document.body.classList.add('no-scroll');
         document.getElementsByTagName('video')[0].classList.add('no-scroll');
-      }, 210);
+      }, 310);
     } else {
       document.body.classList.remove('no-scroll');
       document.getElementsByTagName('video')[0].classList.remove('no-scroll');
@@ -68,25 +68,27 @@ class KittyLoader extends React.Component {
     return (
       <div className={`KittyLoader ${showKittyLoaderClass}`}>
         <CSSTransitionGroup
+          in
           transitionName="SplashScreen-transition"
           transitionAppear={true}
-          transitionAppearTimeout={1000}
-          transitionEnterTimeout={1000}
-          transitionLeaveTimeout={1000}
+          transitionAppearTimeout={700}
+          transitionEnterTimeout={700}
+          transitionLeaveTimeout={700}
         >
           {showSplashScreen &&
             <SplashScreen key={generateKey('SplashScreen')} />
           }
         </CSSTransitionGroup>
 
-        <CSSTransitionGroup
-          transitionName="KittyList-transition"
-          transitionAppear={true}
-          transitionAppearTimeout={1000}
-          transitionEnterTimeout={1000}
-          transitionLeaveTimeout={200}
-        >
-          {kittyLoaderReady &&
+        {kittyLoaderReady &&
+          <CSSTransitionGroup
+            in
+            transitionName="KittyList-transition"
+            transitionAppear={true}
+            transitionAppearTimeout={700}
+            transitionEnterTimeout={300}
+            transitionLeaveTimeout={300}
+          >
             <KittyList
               key={generateKey('KittyList')}
               kitties={kitties}
@@ -94,8 +96,8 @@ class KittyLoader extends React.Component {
               handleSelectKittyButton={handleSelectKittyButton}
               handleLoadKittyButton={handleLoadKittyButton}
             />
-          }
-        </CSSTransitionGroup>
+          </CSSTransitionGroup>
+        }
       </div>
     );
   }

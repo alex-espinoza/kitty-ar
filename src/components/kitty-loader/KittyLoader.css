@@ -28,30 +28,36 @@
 }
 
 .SplashScreen-transition-appear {
+  transform: translateY(-20px);
   opacity: 0;
 }
 
 .SplashScreen-transition-appear.SplashScreen-transition-appear-active {
+  transform: translateY(0px);
   opacity: 1;
-  transition: opacity 1000ms ease;
+  transition: all 700ms ease;
 }
 
 .SplashScreen-transition-leave {
+  transform: translateY(0px);
   opacity: 1;
 }
 
 .SplashScreen-transition-leave.SplashScreen-transition-leave-active {
+  transform: translateY(-20px);
   opacity: 0;
-  transition: opacity 1000ms ease;
+  transition: all 700ms ease;
 }
 
 .KittyList-transition-appear {
+  transform: translateY(-20px);
   opacity: 0;
 }
 
 .KittyList-transition-appear.KittyList-transition-appear-active {
+  transform: translateY(0px);
   opacity: 1;
-  transition: opacity 1000ms ease;
+  transition: all 700ms ease;
 }
 
 .KittyList-transition-enter {
@@ -60,7 +66,7 @@
 
 .KittyList-transition-enter.KittyList-transition-enter-active {
   opacity: 1;
-  transition: opacity 1000ms ease;
+  transition: opacity 300ms ease;
 }
 
 .KittyList-transition-leave {
@@ -69,6 +75,6 @@
 
 .KittyList-transition-leave.KittyList-transition-leave-active {
   opacity: 0;
-  transition: opacity 200ms ease;
+  transition: opacity 300ms ease;
 }
 
