@@ -71,9 +71,11 @@ class KittyList extends React.Component {
       let containerBackgroundColorClass = `KittyList-kitty-image-container-background-${kitty.color}`;
 
       return (
-        <div className={`KittyList-kitty-image-container ${kittySelectedClass} ${containerBackgroundColorClass}`}>
+        <div
+          key={kittyKey}
+          className={`KittyList-kitty-image-container ${kittySelectedClass} ${containerBackgroundColorClass}`}
+        >
           <img
-            key={kittyKey}
             alt={kitty.name || kittyKey}
             className="KittyList-kitty-image"
             src={kitty.imageData}
