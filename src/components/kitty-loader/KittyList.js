@@ -66,17 +66,19 @@ class KittyList extends React.Component {
 
     let kittiesList = kitties.map((kitty) => {
       let kittyKey = `kitty-${kitty.id}`;
-      let kittySelectedClass = kitty.id === selectedKittyId ? 'KittyList-kitty-image-selected' : '';
+      let kittySelectedClass = kitty.id === selectedKittyId ? 'KittyList-kitty-image-container-selected' : '';
 
       return (
-        <img
-          key={kittyKey}
-          alt={kitty.name || kittyKey}
-          className={`KittyList-kitty-image ${kittySelectedClass}`}
-          src={kitty.imageData}
-          data-kitty-id={kitty.id}
-          onClick={() => this.handleKittyImageClick(kitty.id)}
-        />
+        <div className={`KittyList-kitty-image-container ${kittySelectedClass}`}>
+          <img
+            key={kittyKey}
+            alt={kitty.name || kittyKey}
+            className="KittyList-kitty-image"
+            src={kitty.imageData}
+            data-kitty-id={kitty.id}
+            onClick={() => this.handleKittyImageClick(kitty.id)}
+          />
+        </div>
       )
     });
 
