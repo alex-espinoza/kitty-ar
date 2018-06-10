@@ -1,5 +1,5 @@
 .KittyLoader {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   opacity: 0;
@@ -19,6 +19,7 @@
 }
 
 .KittyLoader-show {
+  position: absolute;
   opacity: 1;
   pointer-events: auto;
 }
