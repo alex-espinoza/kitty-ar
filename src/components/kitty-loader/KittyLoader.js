@@ -68,7 +68,7 @@ class KittyLoader extends React.Component {
     return (
       <div className={`KittyLoader ${showKittyLoaderClass}`}>
         <CSSTransitionGroup
-          in
+          in="true"
           transitionName="SplashScreen-transition"
           transitionAppear={true}
           transitionAppearTimeout={700}
@@ -82,7 +82,7 @@ class KittyLoader extends React.Component {
 
         {kittyLoaderReady &&
           <CSSTransitionGroup
-            in
+            in="true"
             className="Transition-Component"
             transitionName="KittyList-transition"
             transitionAppear={true}
