@@ -24,20 +24,135 @@
   flex: 0 0 45%;
   width: 150px;
   height: auto;
-  border: 2px solid transparent;
   margin: 0 0 20px 0;
+  border: 2px solid transparent;
   border-radius: 14px;
+  cursor: pointer;
 }
 
-/*.KittyList-kitty-image {
-  flex: 0 0 45%;
-  width: 150px;
-  height: auto;
-  border: 2px solid transparent;
-}*/
-
 .KittyList-kitty-image-container-selected {
-  border: 2px solid pink;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+}
+
+.KittyList-kitty-image-container-selected .KittyList-kitty-image {
+  animation: sway 3s ease infinite;
+  backface-visibility: hidden;
+}
+
+@keyframes sway {
+  0% {
+    transform: rotate3d(0, 0, 1, 0deg) translateZ(0);
+  }
+
+  10%,
+  20% {
+    transform: rotate3d(0, 0, 1, -3deg) translateZ(0);
+  }
+
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: rotate3d(0, 0, 1, 3deg) translateZ(0);
+  }
+
+  40%,
+  60%,
+  80% {
+    transform: rotate3d(0, 0, 1, -3deg) translateZ(0);
+  }
+
+  100% {
+    transform: rotate3d(0, 0, 1, 0deg) translateZ(0);
+  }
+}
+
+.KittyList-kitty-image-container-background-autumnmoon {
+  background-color: #fdf3e0;
+}
+
+.KittyList-kitty-image-container-background-babypuke {
+  background-color: #eff1e0;
+}
+
+.KittyList-kitty-image-container-background-bubblegum {
+  background-color: #fadff4;
+}
+
+.KittyList-kitty-image-container-background-chestnut {
+  background-color: #efe1da;
+}
+
+.KittyList-kitty-image-container-background-coralsunrise {
+  background-color: #fde9e4;
+}
+
+.KittyList-kitty-image-container-background-cyan {
+  background-color: #c5eefa;
+}
+
+.KittyList-kitty-image-container-background-dahlia {
+  background-color: #e6eafd;
+}
+
+.KittyList-kitty-image-container-background-doridnudibranch {
+  background-color: #faeefa;
+}
+
+.KittyList-kitty-image-container-background-eclipse {
+  background-color: #e5e7ef;
+}
+
+.KittyList-kitty-image-container-background-forgetmenot {
+  background-color: #dcebfc;
+}
+
+.KittyList-kitty-image-container-background-gold {
+  background-color: #faf4cf;
+}
+
+.KittyList-kitty-image-container-background-limegreen {
+  background-color: #d9f5cb;
+}
+
+.KittyList-kitty-image-container-background-mintgreen {
+  background-color: #cdf5d4;
+}
+
+.KittyList-kitty-image-container-background-palejade {
+  background-color: #e7f1ed;
+}
+
+.KittyList-kitty-image-container-background-parakeet {
+  background-color: #e5f3e2;
+}
+
+.KittyList-kitty-image-container-background-pumpkin {
+  background-color: #fae1ca;
+}
+
+.KittyList-kitty-image-container-background-sapphire {
+  background-color: #d3e8ff;
+}
+
+.KittyList-kitty-image-container-background-sizzurp {
+  background-color: #dfdffa;
+}
+
+.KittyList-kitty-image-container-background-strawberry {
+  background-color: #ffe0e5;
+}
+
+.KittyList-kitty-image-container-background-thundergrey {
+  background-color: #eee9e8;
+}
+
+.KittyList-kitty-image-container-background-topaz {
+  background-color: #d1eeeb;
+}
+
+.KittyList-kitty-image-container-background-twilightsparkle {
+  background-color: #ede2f5;
 }
 
 .KittyList-button {

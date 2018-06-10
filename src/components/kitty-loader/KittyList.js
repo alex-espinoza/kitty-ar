@@ -67,9 +67,10 @@ class KittyList extends React.Component {
     let kittiesList = kitties.map((kitty) => {
       let kittyKey = `kitty-${kitty.id}`;
       let kittySelectedClass = kitty.id === selectedKittyId ? 'KittyList-kitty-image-container-selected' : '';
+      let containerBackgroundColorClass = `KittyList-kitty-image-container-background-${kitty.color}`;
 
       return (
-        <div className={`KittyList-kitty-image-container ${kittySelectedClass}`}>
+        <div className={`KittyList-kitty-image-container ${kittySelectedClass} ${containerBackgroundColorClass}`}>
           <img
             key={kittyKey}
             alt={kitty.name || kittyKey}
