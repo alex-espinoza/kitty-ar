@@ -1,7 +1,7 @@
 import React from 'react';
 import KittyLoader from './components/kitty-loader/KittyLoader';
 import OverlayButton from './components/overlay-button/OverlayButton';
-import { getAllKittiesFromLocalStorage, loadKittyFromLocalStorage, saveKittyToLocalStorage } from './kittyData';
+import { getAllKittiesFromLocalStorage, loadKittyFromLocalStorage, saveKittyToLocalStorage, deleteKittyFromLocalStorage } from './kittyData';
 import { getKittyDataById } from './kittyApi';
 import 'aframe';
 import './App.css';
@@ -20,6 +20,7 @@ class App extends React.Component {
     };
 
     this.handleSelectKittyButton = this.handleSelectKittyButton.bind(this);
+    this.handleDeleteKittyButton = this.handleDeleteKittyButton.bind(this);
     this.handleOverlayButton = this.handleOverlayButton.bind(this);
     this.handleLoadKittyButton = this.handleLoadKittyButton.bind(this);
   }
@@ -36,6 +37,16 @@ class App extends React.Component {
 
     this.setState({
       showKittyLoader: false
+    });
+  }
+
+  handleDeleteKittyButton(kittyId) {
+    deleteKittyFromLocalStorage(kittyId);
+    let localStorageKitties = getAllKittiesFromLocalStorage();
+
+    this.setState({
+      kitties: localStorageKitties,
+      showKittyLoader: true
     });
   }
 
@@ -111,6 +122,7 @@ class App extends React.Component {
           showKittyLoader={showKittyLoader}
           isLoadingKitty={isLoadingKitty}
           handleSelectKittyButton={this.handleSelectKittyButton}
+          handleDeleteKittyButton={this.handleDeleteKittyButton}
           handleLoadKittyButton={this.handleLoadKittyButton}
         />
 

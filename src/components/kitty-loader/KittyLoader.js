@@ -62,7 +62,7 @@ class KittyLoader extends React.Component {
 
   render() {
     const { showSplashScreen, kittyLoaderReady } = this.state;
-    const { kitties, showKittyLoader, isLoadingKitty, handleSelectKittyButton, handleLoadKittyButton } = this.props;
+    const { kitties, showKittyLoader, isLoadingKitty, handleSelectKittyButton, handleDeleteKittyButton, handleLoadKittyButton } = this.props;
     let showKittyLoaderClass = showKittyLoader ? 'KittyLoader-show' : '';
 
     return (
@@ -95,6 +95,7 @@ class KittyLoader extends React.Component {
               kitties={kitties}
               isLoadingKitty={isLoadingKitty}
               handleSelectKittyButton={handleSelectKittyButton}
+              handleDeleteKittyButton={handleDeleteKittyButton}
               handleLoadKittyButton={handleLoadKittyButton}
             />
           </CSSTransitionGroup>
@@ -109,6 +110,7 @@ KittyLoader.propTypes = {
   showKittyLoader: PropTypes.bool.isRequired,
   isLoadingKitty: PropTypes.bool.isRequired,
   handleSelectKittyButton: PropTypes.func.isRequired,
+  handleDeleteKittyButton: PropTypes.func.isRequired,
   handleLoadKittyButton: PropTypes.func.isRequired
 }
 

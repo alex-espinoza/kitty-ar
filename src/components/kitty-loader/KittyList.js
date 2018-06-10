@@ -31,7 +31,8 @@ class KittyList extends React.Component {
     if (snapshot) {
       this.setState({
         loadKittyId: '',
-        validLoadKittyId: false
+        validLoadKittyId: false,
+        selectedKittyId: null
       });
     }
   }
@@ -62,7 +63,7 @@ class KittyList extends React.Component {
 
   render() {
     const { selectedKittyId, loadKittyId, validLoadKittyId } = this.state;
-    const { kitties, isLoadingKitty, handleSelectKittyButton, handleLoadKittyButton } = this.props;
+    const { kitties, isLoadingKitty, handleSelectKittyButton, handleDeleteKittyButton, handleLoadKittyButton } = this.props;
 
     let kittiesList = kitties.map((kitty) => {
       let kittyKey = `kitty-${kitty.id}`;
@@ -91,13 +92,25 @@ class KittyList extends React.Component {
           { kittiesList }
         </div>
 
-        <button
-          className="KittyList-button KittyList-button-select-kitty"
-          disabled={!selectedKittyId}
-          onClick={() => handleSelectKittyButton(selectedKittyId)}
-        >
-          Select Kitty
-        </button>
+        {selectedKittyId &&
+          <div className="KittyList-button-group">
+            <button
+              className="KittyList-button KittyList-button-select"
+              disabled={!selectedKittyId}
+              onClick={() => handleSelectKittyButton(selectedKittyId)}
+            >
+              Select
+            </button>
+
+            <button
+              className="KittyList-button KittyList-button-delete"
+              disabled={!selectedKittyId}
+              onClick={() => handleDeleteKittyButton(selectedKittyId)}
+            >
+              Delete
+            </button>
+          </div>
+        }
 
         <input
           className="KittyList-input"
@@ -127,6 +140,7 @@ KittyList.propTypes = {
   kitties: PropTypes.array.isRequired,
   isLoadingKitty: PropTypes.bool.isRequired,
   handleSelectKittyButton: PropTypes.func.isRequired,
+  handleDeleteKittyButton: PropTypes.func.isRequired,
   handleLoadKittyButton: PropTypes.func.isRequired
 }
 
