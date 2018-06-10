@@ -15,7 +15,7 @@
   background-color: #FFFFFF;
   overflow: hidden;
   z-index: 20;
-  transition: opacity 200ms ease;
+  transition: opacity 300ms ease;
 }
 
 .KittyLoader-show {
