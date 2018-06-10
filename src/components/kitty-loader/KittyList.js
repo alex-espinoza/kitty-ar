@@ -92,6 +92,29 @@ class KittyList extends React.Component {
 
         <div className="KittyList-kitties">
           { kittiesList }
+
+          <div
+            className="KittyList-load-kitty-container"
+          >
+            <input
+              className="KittyList-input"
+              id="kittyId"
+              name="kittyId"
+              type="number"
+              placeholder="Kitty ID"
+              required
+              value={loadKittyId}
+              onChange={(event) => this.handleLoadKittyIdChange(event)}
+            />
+
+            <button
+              className="KittyList-button KittyList-button-load"
+              disabled={isLoadingKitty || !validLoadKittyId}
+              onClick={() => handleLoadKittyButton(loadKittyId)}
+            >
+              Load
+            </button>
+          </div>
         </div>
 
         {selectedKittyId &&
@@ -113,25 +136,6 @@ class KittyList extends React.Component {
             </button>
           </div>
         }
-
-        <input
-          className="KittyList-input"
-          id="kittyId"
-          name="kittyId"
-          type="number"
-          placeholder="Kitty ID"
-          required
-          value={loadKittyId}
-          onChange={(event) => this.handleLoadKittyIdChange(event)}
-        />
-
-        <button
-          className="KittyList-button KittyList-button-load-kitty"
-          disabled={isLoadingKitty || !validLoadKittyId}
-          onClick={() => handleLoadKittyButton(loadKittyId)}
-        >
-          Load Kitty
-        </button>
       </div>
     );
   }
