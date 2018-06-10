@@ -21,6 +21,7 @@ export const getKittyDataById = async (kittyId) => {
         imageUrl: null,
         imageExtension: null,
         imageData: null,
+        color: null
       };
     });
 

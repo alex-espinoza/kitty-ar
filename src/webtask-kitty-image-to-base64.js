@@ -24,6 +24,7 @@ app.get('/', async (request, response) => {
     imageUrl: null,
     imageExtension: null,
     imageData: null,
+    color: null
   };
 
   try {
@@ -57,6 +58,7 @@ function saveAPIData(kittyData, responseJson) {
   kittyData.bio = responseJson.bio;
   kittyData.imageUrl = responseJson.image_url_cdn;
   kittyData.imageExtension = responseJson.image_url_cdn.split('.').pop();
+  kittyData.color = responseJson.color;
 }
 
 function formatBase64ToDataUrl(base64, extension) {
