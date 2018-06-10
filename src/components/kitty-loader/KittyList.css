@@ -3,7 +3,6 @@
   text-align: center;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   align-content: center;
 }
 
@@ -15,23 +14,22 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
   align-content: center;
 }
 
 .KittyList-kitty-image-container {
-  flex: 0 0 45%;
-  width: 150px;
+  flex: 0 1 40%;
+  width: 50%;
   height: auto;
-  margin: 0 0 20px 0;
+  margin: 0 10px 20px 10px;
   border: 2px solid transparent;
   border-radius: 14px;
   cursor: pointer;
 }
 
 .KittyList-kitty-image-container-selected {
-  border: 2px solid rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(0, 0, 0, 0.1);
 }
 
 .KittyList-kitty-image-container-selected .KittyList-kitty-image {

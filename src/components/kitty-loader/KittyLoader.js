@@ -83,6 +83,7 @@ class KittyLoader extends React.Component {
         {kittyLoaderReady &&
           <CSSTransitionGroup
             in
+            className="Transition-Component"
             transitionName="KittyList-transition"
             transitionAppear={true}
             transitionAppearTimeout={700}
