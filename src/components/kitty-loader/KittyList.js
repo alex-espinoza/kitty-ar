@@ -117,25 +117,23 @@ class KittyList extends React.Component {
           </div>
         </div>
 
-        {selectedKittyId &&
-          <div className="KittyList-button-group">
-            <button
-              className="KittyList-button KittyList-button-select"
-              disabled={!selectedKittyId}
-              onClick={() => handleSelectKittyButton(selectedKittyId)}
-            >
-              Select
-            </button>
+        <div className="KittyList-button-group">
+          <button
+            className="KittyList-button KittyList-button-select"
+            disabled={!selectedKittyId}
+            onClick={() => handleSelectKittyButton(selectedKittyId)}
+          >
+            Select
+          </button>
 
-            <button
-              className="KittyList-button KittyList-button-delete"
-              disabled={!selectedKittyId}
-              onClick={() => handleDeleteKittyButton(selectedKittyId)}
-            >
-              Delete
-            </button>
-          </div>
-        }
+          <button
+            className="KittyList-button KittyList-button-delete"
+            disabled={!selectedKittyId}
+            onClick={() => handleDeleteKittyButton(selectedKittyId)}
+          >
+            Delete
+          </button>
+        </div>
       </div>
     );
   }
