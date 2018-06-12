@@ -16,27 +16,6 @@ class KittyList extends React.Component {
     this.handleLoadKittyIdChange = this.handleLoadKittyIdChange.bind(this);
   }
 
-  getSnapshotBeforeUpdate(previousProps, previousState) {
-    let previousKittyList = previousProps.kitties;
-    let newKittyList = this.props.kitties;
-
-    if (previousKittyList.length !== newKittyList.length) {
-      return true
-    } else {
-      return false
-    }
-  }
-
-  componentDidUpdate(previousProps, previousState, snapshot) {
-    if (snapshot) {
-      this.setState({
-        loadKittyId: '',
-        validLoadKittyId: false,
-        selectedKittyId: null
-      });
-    }
-  }
-
   handleKittyImageClick(kittyId) {
     this.setState({
       selectedKittyId: kittyId
@@ -109,6 +88,7 @@ class KittyList extends React.Component {
 
             <button
               className="KittyList-button KittyList-button-load"
+              type="button"
               disabled={isLoadingKitty || !validLoadKittyId}
               onClick={() => handleLoadKittyButton(loadKittyId)}
             >
@@ -120,6 +100,7 @@ class KittyList extends React.Component {
         <div className="KittyList-button-group">
           <button
             className="KittyList-button KittyList-button-select"
+            type="button"
             disabled={!selectedKittyId}
             onClick={() => handleSelectKittyButton(selectedKittyId)}
           >
@@ -128,6 +109,7 @@ class KittyList extends React.Component {
 
           <button
             className="KittyList-button KittyList-button-delete"
+            type="button"
             disabled={!selectedKittyId}
             onClick={() => handleDeleteKittyButton(selectedKittyId)}
           >
