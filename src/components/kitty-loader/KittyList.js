@@ -75,9 +75,7 @@ class KittyList extends React.Component {
         <div className="KittyList-kitties">
           { kittiesList }
 
-          <div
-            className="KittyList-load-kitty-container"
-          >
+          <div className="KittyList-load-kitty-container">
             <span className="KittyList-kitty-id">Load New Kitty</span>
             <input
               className="KittyList-input"

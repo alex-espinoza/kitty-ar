@@ -55,7 +55,7 @@ class App extends React.Component {
     this.setState({
       kitties: localStorageKitties,
       showStatusBar: true,
-      statusText: `Kitty '${kittyName}' was deleted. Don't worry, you can fetch it again!`
+      statusText: `Kitty '${kittyName}' was deleted. You can always load it again!`
     });
   }
 

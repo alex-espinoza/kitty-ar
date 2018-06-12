@@ -182,6 +182,7 @@
   flex: 0 1 40%;
   width: 150px;
   height: auto;
+  min-height: 200px;
   margin: 0 10px 20px 10px;
   border: 2px solid rgba(0, 0, 0, 0.1);
   border-radius: 14px;
@@ -189,6 +190,10 @@
   flex-direction: column;
   justify-content: center;
   align-content: center;
+  background-image: url('../../nullcat.svg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 .KittyList-button-group {
@@ -239,7 +244,7 @@
 .KittyList-input {
   width: 80%;
   font-family: 'Karla', sans-serif;
-  border: 1px solid #0b0b0b;
+  border: 1px solid #e37ad3;
   border-radius: 4px;
   margin: 12px auto;
   text-align: center;
