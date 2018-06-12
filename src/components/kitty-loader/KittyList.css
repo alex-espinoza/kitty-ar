@@ -20,6 +20,7 @@
 }
 
 .KittyList-kitty-image-container {
+  position: relative;
   flex: 0 1 40%;
   width: 50%;
   height: auto;
@@ -31,6 +32,23 @@
 
 .KittyList-kitty-image-container-selected {
   border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.KittyList-kitty-id {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 12px;
+  font-style: italic;
+  opacity: 0.7;
+  padding: 4px;
+}
+
+.KittyList-kitty-name {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  margin: 4px 0;
 }
 
 .KittyList-kitty-image-container-selected .KittyList-kitty-image {
@@ -163,7 +181,7 @@
   position: relative;
   flex: 0 1 40%;
   width: 150px;
-  height: 150px;
+  height: auto;
   margin: 0 10px 20px 10px;
   border: 2px solid rgba(0, 0, 0, 0.1);
   border-radius: 14px;

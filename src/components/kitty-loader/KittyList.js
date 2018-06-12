@@ -46,6 +46,7 @@ class KittyList extends React.Component {
 
     let kittiesList = kitties.map((kitty) => {
       let kittyKey = `kitty-${kitty.id}`;
+      let kittyName = kitty.name ? kitty.name : `Kitty #${kitty.id}`;
       let kittySelectedClass = kitty.id === selectedKittyId ? 'KittyList-kitty-image-container-selected' : '';
       let containerBackgroundColorClass = `KittyList-kitty-image-container-background-${kitty.color}`;
 
@@ -53,14 +54,16 @@ class KittyList extends React.Component {
         <div
           key={kittyKey}
           className={`KittyList-kitty-image-container ${kittySelectedClass} ${containerBackgroundColorClass}`}
+          data-kitty-id={kitty.id}
+          onClick={() => this.handleKittyImageClick(kitty.id)}
         >
+          <span className="KittyList-kitty-id">#{kitty.id}</span>
           <img
             alt={kitty.name || kittyKey}
             className="KittyList-kitty-image"
             src={kitty.imageData}
-            data-kitty-id={kitty.id}
-            onClick={() => this.handleKittyImageClick(kitty.id)}
           />
+          <p className="KittyList-kitty-name">{kittyName}</p>
         </div>
       )
     });
@@ -75,6 +78,7 @@ class KittyList extends React.Component {
           <div
             className="KittyList-load-kitty-container"
           >
+            <span className="KittyList-kitty-id">Load New Kitty</span>
             <input
               className="KittyList-input"
               id="kittyId"
