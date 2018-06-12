@@ -14,3 +14,7 @@ body {
 .TransitionComponent {
   width: inherit;
 }
+
+.a-enter-vr {
+  display: none;
+}
