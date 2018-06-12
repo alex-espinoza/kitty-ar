@@ -37,13 +37,19 @@
   }
 }
 
+.SplashScreen-paragraph {
+  width: 90%;
+  margin: 0 auto 15px;
+  text-align: center;
+}
+
 .SplashScreen-diamond {
   display: inline-block;
   height: 50px;
   width: auto;
   transform: rotate(0deg);
   transform-origin: center center;
-  animation: diamondRotate 1s ease-in-out infinite;
+  animation: diamondRotate 2s ease-in-out infinite;
 }
 
 @keyframes diamondRotate {
@@ -51,8 +57,12 @@
     transform: rotate(0deg);
   }
 
-  100% {
+  50% {
     transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }
 
@@ -60,7 +70,7 @@
   width: 0;
   height: 0;
   border: 10px solid transparent;
-  border-bottom: 25px solid pink;
+  border-bottom: 25px solid #d850b1;
   position: relative;
   top: -10px;
 }
@@ -73,5 +83,5 @@
   width: 0;
   height: 0;
   border: 10px solid transparent;
-  border-top: 25px solid pink;
+  border-top: 25px solid #e37ad3;
 }
