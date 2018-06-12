@@ -1,4 +1,4 @@
-export const getKittyDataById = async (kittyId) => {
+export const fetchKittyData = async (kittyId) => {
   let kittyData;
   let kittyDataEndpoint = `https://wt-f8af72159b229d5a895848a643ddf7bf-0.sandbox.auth0-extend.com/kitty-image-to-base64?kittyId=${kittyId}`;
 

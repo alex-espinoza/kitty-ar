@@ -1,0 +1,17 @@
+.StatusBar-transition-enter {
+  transform: translateY(-50px);
+}
+
+.StatusBar-transition-enter.StatusBar-transition-enter-active {
+  transform: translateY(0px);
+  transition: transform 300ms ease;
+}
+
+.StatusBar-transition-leave {
+  transform: translateY(0px);
+}
+
+.StatusBar-transition-leave.StatusBar-transition-leave-active {
+  transform: translateY(-50px);
+  transition: transform 300ms ease;
+}

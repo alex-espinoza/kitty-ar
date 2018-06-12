@@ -15,8 +15,10 @@ export const getAllKittiesFromLocalStorage = () => {
 
 export const loadKittyFromLocalStorage = (kittyId) => {
   let kittyItem = `kitty-${kittyId}`;
-  let kittyImageData = JSON.parse(localStorage.getItem(kittyItem)).imageData;
+  let kittyData = JSON.parse(localStorage.getItem(kittyItem));
+  let kittyImageData = kittyData.imageData;
   document.querySelector('#kittyImage').setAttribute('src', kittyImageData);
+  return kittyData;
 }
 
 export const saveKittyToLocalStorage = (kittyId, kittyData) => {
@@ -27,5 +29,12 @@ export const saveKittyToLocalStorage = (kittyId, kittyData) => {
 
 export const deleteKittyFromLocalStorage = (kittyId) => {
   var kittyItem = `kitty-${kittyId}`;
+  let kittyData = JSON.parse(localStorage.getItem(kittyItem));
   localStorage.removeItem(kittyItem);
+  return kittyData;
+}
+
+export const checkIfKittyAlreadySaved = (kittyId) => {
+  let kittyItem = `kitty-${kittyId}`;
+  return kittyItem in localStorage ? true : false;
 }

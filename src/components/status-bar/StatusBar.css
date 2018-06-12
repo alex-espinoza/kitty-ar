@@ -1,0 +1,15 @@
+.StatusBar {
+  z-index: 30;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 4px;
+  width: 100%;
+  text-align: center;
+  background-color: #e37ad3;
+  color: #ffffff;
+  font-size: 14px;
+  box-shadow: 0 4px 6px -6px #333333;
+}
+
+

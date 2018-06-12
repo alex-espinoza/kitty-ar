@@ -1,8 +1,9 @@
 import React from 'react';
+import StatusBar from './components/status-bar/StatusBar';
 import KittyLoader from './components/kitty-loader/KittyLoader';
 import OverlayButton from './components/overlay-button/OverlayButton';
-import { getAllKittiesFromLocalStorage, loadKittyFromLocalStorage, saveKittyToLocalStorage, deleteKittyFromLocalStorage } from './kittyData';
-import { getKittyDataById } from './kittyApi';
+import { getAllKittiesFromLocalStorage, loadKittyFromLocalStorage, saveKittyToLocalStorage, deleteKittyFromLocalStorage, checkIfKittyAlreadySaved } from './kittyData';
+import { fetchKittyData } from './kittyApi';
 import 'aframe';
 import './App.css';
 
@@ -16,13 +17,16 @@ class App extends React.Component {
     this.state = {
       kitties: localStorageKitties,
       showKittyLoader: true,
-      isLoadingKitty: false
+      isLoadingKitty: false,
+      showStatusBar: false,
+      statusText: ''
     };
 
     this.handleSelectKittyButton = this.handleSelectKittyButton.bind(this);
     this.handleDeleteKittyButton = this.handleDeleteKittyButton.bind(this);
     this.handleOverlayButton = this.handleOverlayButton.bind(this);
     this.handleLoadKittyButton = this.handleLoadKittyButton.bind(this);
+    this.handleHideStatusBar = this.handleHideStatusBar.bind(this);
   }
 
   loadARjs() {
@@ -33,59 +37,73 @@ class App extends React.Component {
   }
 
   handleSelectKittyButton(kittyId) {
-    loadKittyFromLocalStorage(kittyId);
+    let kittyData = loadKittyFromLocalStorage(kittyId);
+    let kittyName = kittyData.name ? kittyData.name : `#${kittyId}`;
 
     this.setState({
-      showKittyLoader: false
+      showKittyLoader: false,
+      showStatusBar: true,
+      statusText: `Here's your kitty, '${kittyName}'! Meow!`
     });
   }
 
   handleDeleteKittyButton(kittyId) {
-    deleteKittyFromLocalStorage(kittyId);
+    let kittyData = deleteKittyFromLocalStorage(kittyId);
     let localStorageKitties = getAllKittiesFromLocalStorage();
+    let kittyName = kittyData.name ? kittyData.name : `#${kittyId}`;
 
     this.setState({
       kitties: localStorageKitties,
-      showKittyLoader: true
+      showStatusBar: true,
+      statusText: `Kitty '${kittyName}' was deleted. Don't worry, you can fetch it again!`
     });
   }
 
   handleOverlayButton() {
     this.setState({
-      showKittyLoader: true
+      showKittyLoader: true,
+      showStatusBar: false,
+      statusText: ''
+    });
+  }
+
+  handleHideStatusBar() {
+    this.setState({
+      showStatusBar: false,
+      statusText: ''
     });
   }
 
   async handleLoadKittyButton(kittyId) {
-    this.setState({
-      isLoadingKitty: true
-      //set loading text state here
-    });
-
-    if (this.checkIfKittyAlreadySaved(kittyId)) {
-      loadKittyFromLocalStorage(kittyId);
+    if (checkIfKittyAlreadySaved(kittyId)) {
+      let kittyData = loadKittyFromLocalStorage(kittyId);
+      let kittyName = kittyData.name ? kittyData.name : `#${kittyId}`;
 
       this.setState({
         showKittyLoader: false,
-        isLoadingKitty: false
+        showStatusBar: true,
+        statusText: `Your kitty, '${kittyName}' is here! Meow!`
       });
 
       return;
     }
 
-    let kittyData = await getKittyDataById(kittyId);
+    this.setState({
+      isLoadingKitty: true,
+      showStatusBar: true,
+      statusText: `Fetching kitty '#${kittyId}'...`
+    });
+
+    let kittyData = await fetchKittyData(kittyId);
 
     if (kittyData.imageUrl !== null && kittyData.imageExtension !== null && kittyData.imageData !== null) {
-      // Try/catch block to see if local storage is full. Base64 images can be quite big, and storage
-      // can max out if a lot of kitties are already loaded
       try {
         await saveKittyToLocalStorage(kittyId, kittyData);
       } catch(error) {
-        console.log('local storage is full, please clear some kitties out');
-        // set storage full error text state here
         this.setState({
-          showKittyLoader: true,
-          isLoadingKitty: false
+          isLoadingKitty: false,
+          showStatusBar: true,
+          statusText: "There's no room for more kitties! You have to delete some."
         });
 
         return;
@@ -93,30 +111,35 @@ class App extends React.Component {
 
       await loadKittyFromLocalStorage(kittyId);
       let localStorageKitties = await getAllKittiesFromLocalStorage();
+      let kittyName = kittyData.name ? kittyData.name : `#${kittyId}`;
 
       this.setState({
         kitties: localStorageKitties,
         showKittyLoader: false,
-        isLoadingKitty: false
+        isLoadingKitty: false,
+        showStatusBar: true,
+        statusText: `Your kitty, '${kittyName}' has arrived! Meow!`
       });
     } else {
       this.setState({
-        showKittyLoader: true,
-        isLoadingKitty: false
+        isLoadingKitty: false,
+        showStatusBar: true,
+        statusText: 'There was a problem when fetching your kitty. Please try again.'
       });
     }
   }
 
-  checkIfKittyAlreadySaved(kittyId) {
-    let kittyItem = `kitty-${kittyId}`;
-    return kittyItem in localStorage ? true : false;
-  }
-
   render() {
-    const { kitties, showKittyLoader, isLoadingKitty } = this.state;
+    const { kitties, showKittyLoader, isLoadingKitty, showStatusBar, statusText } = this.state;
 
     return (
       <div>
+        <StatusBar
+          showStatusBar={showStatusBar}
+          statusText={statusText}
+          handleHideStatusBar={this.handleHideStatusBar}
+        />
+
         <KittyLoader
           kitties={kitties}
           showKittyLoader={showKittyLoader}
