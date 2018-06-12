@@ -76,9 +76,9 @@ class KittyList extends React.Component {
       return (
         <div>
           <h1 className="KittyList-instructions-header">Let's Get Started</h1>
-          <p className="KittyList-instructions-paragraph"><strong>Step 1:</strong> Print out this <a href="%PUBLIC_URL%/hiro.png" target="_blank">hiro marker image</a> (or have it open on another screen).</p>
+          <p className="KittyList-instructions-paragraph"><strong>Step 1:</strong> Print out this <a href="./hiro.png" target="_blank">hiro marker image</a> (or have it open on another screen).</p>
           <p className="KittyList-instructions-paragraph"><strong>Step 2:</strong> Input your CryptoKitty's ID below and press 'Load' to fetch it.</p>
-          <p className="KittyList-instructions-paragraph"><strong>Step 3:</strong> When your kitty is loaded, <a href="%PUBLIC_URL%/pointing-camera-at-hiro-marker.jpg" target="_blank">point your camera at the hiro marker</a>. Ta-da!</p>
+          <p className="KittyList-instructions-paragraph"><strong>Step 3:</strong> When your kitty is loaded, <a href="./pointing-camera-at-hiro-marker.jpg" target="_blank">point your camera at the hiro marker</a>. Ta-da!</p>
         </div>
       )
     } else {
