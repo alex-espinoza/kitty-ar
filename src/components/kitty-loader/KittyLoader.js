@@ -1,6 +1,5 @@
 import React from 'react';
 import { CSSTransitionGroup } from 'react-transition-group';
-import { generateKey } from '../../utils';
 import SplashScreen from './SplashScreen';
 import KittyList from './KittyList';
 import PropTypes from 'prop-types';
@@ -53,7 +52,7 @@ class KittyLoader extends React.Component {
           this.setState({
             kittyLoaderReady: true
           });
-        }, 1100)
+        }, 1000)
 
         clearInterval(checkIfARLoaded);
       }
@@ -72,34 +71,32 @@ class KittyLoader extends React.Component {
           transitionName="SplashScreen-transition"
           transitionAppear={true}
           transitionAppearTimeout={700}
-          transitionEnterTimeout={700}
+          transitionEnter={false}
           transitionLeaveTimeout={700}
         >
           {showSplashScreen &&
-            <SplashScreen key={generateKey('SplashScreen')} />
+            <SplashScreen key="SplashScreen" />
           }
         </CSSTransitionGroup>
 
-        {kittyLoaderReady &&
-          <CSSTransitionGroup
-            in="true"
-            className="Transition-Component"
-            transitionName="KittyList-transition"
-            transitionAppear={true}
-            transitionAppearTimeout={700}
-            transitionEnterTimeout={300}
-            transitionLeaveTimeout={300}
-          >
+        <CSSTransitionGroup
+          in="true"
+          className="Transition-Component"
+          transitionName="KittyList-transition"
+          transitionEnterTimeout={700}
+          transitionLeave={false}
+        >
+          {kittyLoaderReady &&
             <KittyList
-              key={generateKey('KittyList')}
+              key="KittyList"
               kitties={kitties}
               isLoadingKitty={isLoadingKitty}
               handleSelectKittyButton={handleSelectKittyButton}
               handleDeleteKittyButton={handleDeleteKittyButton}
               handleLoadKittyButton={handleLoadKittyButton}
             />
-          </CSSTransitionGroup>
-        }
+          }
+        </CSSTransitionGroup>
       </div>
     );
   }

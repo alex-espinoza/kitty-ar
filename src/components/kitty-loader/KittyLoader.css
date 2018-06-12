@@ -51,32 +51,11 @@
   transition: all 700ms ease;
 }
 
-.KittyList-transition-appear {
-  transform: translateY(-20px);
-  opacity: 0;
-}
-
-.KittyList-transition-appear.KittyList-transition-appear-active {
-  transform: translateY(0px);
-  opacity: 1;
-  transition: all 700ms ease;
-}
-
 .KittyList-transition-enter {
   opacity: 0;
 }
 
 .KittyList-transition-enter.KittyList-transition-enter-active {
   opacity: 1;
-  transition: opacity 300ms ease;
+  transition: all 700ms ease;
 }
-
-.KittyList-transition-leave {
-  opacity: 1;
-}
-
-.KittyList-transition-leave.KittyList-transition-leave-active {
-  opacity: 0;
-  transition: opacity 300ms ease;
-}
-
