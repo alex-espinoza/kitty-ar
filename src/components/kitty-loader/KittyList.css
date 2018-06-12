@@ -7,6 +7,17 @@
   align-content: center;
 }
 
+.KittyList-instructions-header {
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+
+.KittyList-instructions-paragraph {
+  width: 90%;
+  margin: 0 auto 15px;
+  text-align: center;
+}
+
 .KittyList-header {
   text-align: center;
 }

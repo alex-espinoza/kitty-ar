@@ -40,11 +40,11 @@ class KittyList extends React.Component {
     }
   }
 
-  render() {
-    const { selectedKittyId, loadKittyId, validLoadKittyId } = this.state;
-    const { kitties, isLoadingKitty, handleSelectKittyButton, handleDeleteKittyButton, handleLoadKittyButton } = this.props;
+  renderKittiesList() {
+    const { selectedKittyId } = this.state;
+    const { kitties } = this.props;
 
-    let kittiesList = kitties.map((kitty) => {
+    return kitties.map((kitty) => {
       let kittyKey = `kitty-${kitty.id}`;
       let kittyName = kitty.name ? kitty.name : `Kitty #${kitty.id}`;
       let kittySelectedClass = kitty.id === selectedKittyId ? 'KittyList-kitty-image-container-selected' : '';
@@ -67,10 +67,35 @@ class KittyList extends React.Component {
         </div>
       )
     });
+  }
+
+  renderInstructionsIfNoKittiesSaved() {
+    const { kitties } = this.props;
+
+    if (kitties.length === 0) {
+      return (
+        <div>
+          <h1 className="KittyList-instructions-header">Let's Get Started</h1>
+          <p className="KittyList-instructions-paragraph"><strong>Step 1:</strong> Print out this <a href="hiro.png" target="_blank">hiro marker image</a> (or have it open on another screen).</p>
+          <p className="KittyList-instructions-paragraph"><strong>Step 2:</strong> Input your CryptoKitty's ID below and press 'Load' to fetch it.</p>
+          <p className="KittyList-instructions-paragraph"><strong>Step 3:</strong> When your kitty is loaded, <a href="pointing-camera-at-hiro-marker.jpg" target="_blank">point your camera at the hiro marker</a>. Ta-da!</p>
+        </div>
+      )
+    } else {
+      return (
+        <h1 className="KittyList-header">Your Kitties</h1>
+      )
+    }
+  }
+
+  render() {
+    const { selectedKittyId, loadKittyId, validLoadKittyId } = this.state;
+    const { isLoadingKitty, handleSelectKittyButton, handleDeleteKittyButton, handleLoadKittyButton } = this.props;
+    let kittiesList = this.renderKittiesList();
 
     return (
       <div className="KittyList">
-        <h1 className="KittyList-header">Your Kitties</h1>
+        {this.renderInstructionsIfNoKittiesSaved()}
 
         <div className="KittyList-kitties">
           { kittiesList }
